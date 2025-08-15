@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -12,7 +12,7 @@ import { Separator } from "@/components/ui/separator"
 import type { CategoryScore } from "@/app/page"
 import { HelpCircle, CheckCircle, Plus, Trash2 } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { BENCHMARK_QUESTIONS, PROCESS_QUESTIONS, SOURCE_TYPES } from "@/lib/category-data"
+import { BENCHMARK_QUESTIONS, PROCESS_QUESTIONS, SOURCE_TYPES, ADDITIONAL_ASPECTS_SECTION } from "@/lib/category-data"
 
 interface Category {
   id: string
@@ -28,6 +28,11 @@ interface Source {
   description: string
   sourceType: keyof typeof SOURCE_TYPES
   score?: string
+  benchmarkName?: string
+  version?: string
+  taskVariants?: string
+  metrics?: string
+  customFields?: Record<string, string>
 }
 
 interface DocumentationSource {
@@ -36,6 +41,7 @@ interface DocumentationSource {
   description: string
   sourceType: keyof typeof SOURCE_TYPES
   documentType: string
+  customFields?: Record<string, string>
 }
 
 interface CategoryEvaluationProps {
@@ -57,12 +63,6 @@ const CustomFieldComponent = ({
 }) => {
   const getFieldConfig = (questionId: string, fieldType: string) => {
     const configs: Record<string, Record<string, { label: string; placeholder: string; type?: string }>> = {
-      A1: {
-        benchmarkName: { label: "Benchmark/Dataset Name", placeholder: "e.g., MMLU, HellaSwag, GSM8K" },
-        version: { label: "Version", placeholder: "e.g., v1.2, 2024-01" },
-        taskVariants: { label: "Task Variants", placeholder: "e.g., multiple choice, generation, classification" },
-        metrics: { label: "Metrics", placeholder: "e.g., accuracy, F1, BLEU, perplexity" },
-      },
       A2: {
         thresholds: { label: "Quantitative Thresholds", placeholder: "e.g., >85% accuracy, <0.1 error rate" },
         thresholdSource: {
@@ -103,6 +103,17 @@ const CustomFieldComponent = ({
         },
         mitigations: { label: "Mitigations Taken", placeholder: "e.g., removed overlapping samples, used holdout set" },
       },
+      A7: {
+        comparisonSystems: { label: "Comparison Systems", placeholder: "e.g., GPT-4, Claude-3, Gemini Pro" },
+        evaluationConditions: {
+          label: "Evaluation Conditions",
+          placeholder: "e.g., same prompts, temperature=0, identical hardware",
+        },
+        relativeMetrics: {
+          label: "Relative Performance Metrics",
+          placeholder: "e.g., 15% better accuracy, 2x faster inference",
+        },
+      },
       B1: {
         scope: {
           label: "Evaluation Scope",
@@ -121,22 +132,6 @@ const CustomFieldComponent = ({
         },
         accessLevel: { label: "Access Level", placeholder: "e.g., public, access-controlled, internal only" },
         proxies: { label: "Proxies (if not shareable)", placeholder: "e.g., synthetic examples, anonymized data" },
-      },
-      B3: {
-        riskRegister: { label: "Risk Register Entries", placeholder: "e.g., R-001: Bias in hiring decisions" },
-        severityLikelihood: { label: "Severity/Likelihood", placeholder: "e.g., High severity, Medium likelihood" },
-        failureCases: { label: "Example Failure Cases", placeholder: "e.g., model recommends unqualified candidates" },
-      },
-      B4: {
-        beforeAfterMetrics: {
-          label: "Before/After Metrics",
-          placeholder: "e.g., bias score: 0.8 → 0.3 after mitigation",
-        },
-        targetThresholds: { label: "Target Thresholds", placeholder: "e.g., bias score <0.2, fairness metric >0.8" },
-        gateCriteria: {
-          label: "Release Gate Criteria",
-          placeholder: "e.g., all mitigations must show >50% improvement",
-        },
       },
       B5: {
         reviewers: { label: "Reviewers", placeholder: "e.g., domain experts, affected user groups, ethics board" },
@@ -158,14 +153,6 @@ const CustomFieldComponent = ({
         sampleSizes: { label: "Sample Sizes", placeholder: "e.g., n=1000 test samples, 5 random seeds" },
         selectionCriteria: { label: "Selection Criteria", placeholder: "e.g., all results shown, no cherry-picking" },
       },
-      B7: {
-        standardsMapping: { label: "Standards Mapping", placeholder: "e.g., NIST AI RMF, ISO 27001, GDPR compliance" },
-        gaps: { label: "Identified Gaps", placeholder: "e.g., missing bias documentation, incomplete audit trail" },
-        remediationPlan: {
-          label: "Remediation Plan",
-          placeholder: "e.g., implement bias testing by Q2, add audit logging",
-        },
-      },
       B8: {
         triggers: {
           label: "Re-evaluation Triggers",
@@ -173,6 +160,14 @@ const CustomFieldComponent = ({
         },
         versionedSpecs: { label: "Versioned Eval Specs", placeholder: "e.g., eval spec v2.1, change log maintained" },
         auditTrail: { label: "Audit Trail", placeholder: "e.g., all changes logged with timestamps and rationale" },
+        mitigationProtocols: {
+          label: "Mitigation Protocols",
+          placeholder: "e.g., automated rollback, manual review process",
+        },
+        retestProcedures: {
+          label: "Retest Procedures",
+          placeholder: "e.g., full eval suite after fixes, regression testing",
+        },
       },
     }
 
@@ -200,7 +195,8 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
   const [processAnswers, setProcessAnswers] = useState<Record<string, string>>({})
   const [benchmarkSources, setBenchmarkSources] = useState<Record<string, Source[]>>({})
   const [processSources, setProcessSources] = useState<Record<string, DocumentationSource[]>>({})
-  const [customFields, setCustomFields] = useState<Record<string, Record<string, string>>>({})
+  const [additionalAspects, setAdditionalAspects] = useState<string>("")
+  const [naExplanations, setNaExplanations] = useState<Record<string, string>>({})
 
   useEffect(() => {
     if (score) {
@@ -217,6 +213,7 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
         description: "",
         sourceType: "internal",
         score: "",
+        customFields: {},
       }
       setBenchmarkSources((prev) => ({
         ...prev,
@@ -229,6 +226,7 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
         description: "",
         sourceType: "internal",
         documentType: "",
+        customFields: {},
       }
       setProcessSources((prev) => ({
         ...prev,
@@ -275,29 +273,78 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
     }
   }
 
-  const updateCustomField = (questionId: string, fieldType: string, value: string) => {
-    setCustomFields((prev) => ({
-      ...prev,
-      [questionId]: {
-        ...prev[questionId],
-        [fieldType]: value,
-      },
-    }))
+  const updateSourceCustomField = (
+    questionId: string,
+    sourceId: string,
+    fieldType: string,
+    value: string,
+    section: "benchmark" | "process",
+  ) => {
+    if (section === "benchmark") {
+      setBenchmarkSources((prev) => ({
+        ...prev,
+        [questionId]: (prev[questionId] || []).map((source) =>
+          source.id === sourceId
+            ? {
+                ...source,
+                customFields: {
+                  ...source.customFields,
+                  [fieldType]: value,
+                },
+              }
+            : source,
+        ),
+      }))
+    } else {
+      setProcessSources((prev) => ({
+        ...prev,
+        [questionId]: (prev[questionId] || []).map((source) =>
+          source.id === sourceId
+            ? {
+                ...source,
+                customFields: {
+                  ...source.customFields,
+                  [fieldType]: value,
+                },
+              }
+            : source,
+        ),
+      }))
+    }
   }
 
-  const calculateScore = () => {
-    const benchmarkScore = Object.values(benchmarkAnswers).filter((answer) => answer === "yes").length
-    const processScore = Object.values(processAnswers).filter((answer) => answer === "yes").length
-    const totalScore = benchmarkScore + processScore
+  const currentScore = useMemo(() => {
+    console.log("[v0] Calculating score with answers:", { benchmarkAnswers, processAnswers })
+
+    const benchmarkYesCount = Object.values(benchmarkAnswers).filter((answer) => answer === "yes").length
+    const processYesCount = Object.values(processAnswers).filter((answer) => answer === "yes").length
+
+    const benchmarkApplicable = Object.values(benchmarkAnswers).filter((answer) => answer !== "na").length
+    const processApplicable = Object.values(processAnswers).filter((answer) => answer !== "na").length
+
+    const totalAnswered = benchmarkApplicable + processApplicable
+    const totalYes = benchmarkYesCount + processYesCount
+
+    console.log("[v0] Score calculation:", { benchmarkYesCount, processYesCount, totalAnswered, totalYes })
+
+    const benchmarkScore = isNaN(benchmarkYesCount) ? 0 : benchmarkYesCount
+    const processScore = isNaN(processYesCount) ? 0 : processYesCount
+    const totalScore = isNaN(totalYes) ? 0 : totalYes
 
     let status: CategoryScore["status"]
-    if (totalScore >= 11) status = "strong"
-    else if (totalScore >= 8) status = "adequate"
-    else if (totalScore >= 5) status = "weak"
+    const maxPossibleScore = Math.max(1, totalAnswered)
+    const scorePercentage = totalScore / maxPossibleScore
+
+    if (scorePercentage >= 0.8) status = "strong"
+    else if (scorePercentage >= 0.6) status = "adequate"
+    else if (scorePercentage >= 0.4) status = "weak"
     else status = "insufficient"
 
-    return { benchmarkScore, processScore, totalScore, status }
-  }
+    const result = { benchmarkScore, processScore, totalScore, status }
+    console.log("[v0] Final calculated score:", result)
+
+    return result
+  }, [benchmarkAnswers, processAnswers])
 
   const handleAnswerChange = (questionId: string, value: string, section: "benchmark" | "process") => {
     if (section === "benchmark") {
@@ -305,21 +352,52 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
       if (value !== "yes") {
         setBenchmarkSources((prev) => ({ ...prev, [questionId]: [] }))
       }
+      if (value !== "na") {
+        setNaExplanations((prev) => {
+          const newExplanations = { ...prev }
+          delete newExplanations[questionId]
+          return newExplanations
+        })
+      }
     } else {
       setProcessAnswers((prev) => ({ ...prev, [questionId]: value }))
       if (value !== "yes") {
         setProcessSources((prev) => ({ ...prev, [questionId]: [] }))
       }
+      if (value !== "na") {
+        setNaExplanations((prev) => {
+          const newExplanations = { ...prev }
+          delete newExplanations[questionId]
+          return newExplanations
+        })
+      }
     }
   }
 
-  const handleSave = () => {
-    const newScore = calculateScore()
-    onScoreUpdate(newScore)
+  const handleNaExplanationChange = (questionId: string, explanation: string) => {
+    setNaExplanations((prev) => ({ ...prev, [questionId]: explanation }))
   }
 
-  const currentScore = calculateScore()
-  const isComplete = Object.keys(benchmarkAnswers).length === 6 && Object.keys(processAnswers).length === 8
+  const handleSave = () => {
+    const allAnswers = { ...benchmarkAnswers, ...processAnswers }
+    const missingExplanations = Object.entries(allAnswers)
+      .filter(([_, answer]) => answer === "na")
+      .filter(([questionId, _]) => !naExplanations[questionId]?.trim())
+      .map(([questionId, _]) => questionId)
+
+    if (missingExplanations.length > 0) {
+      alert(
+        `Please provide explanations for why the following questions are not applicable: ${missingExplanations.join(", ")}`,
+      )
+      return
+    }
+
+    console.log("[v0] Saving category evaluation")
+    console.log("[v0] Calling onScoreUpdate with:", currentScore)
+    onScoreUpdate(currentScore)
+  }
+
+  const isComplete = Object.keys(benchmarkAnswers).length === 6 && Object.keys(processAnswers).length === 5
 
   return (
     <TooltipProvider>
@@ -338,7 +416,7 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
                 <div className="text-right">
                   <div className="flex items-center gap-2 mb-1">
                     <CheckCircle className="h-5 w-5 text-green-600" />
-                    <span className="font-medium">Score: {currentScore.totalScore}/14</span>
+                    <span className="font-medium">Score: {currentScore.totalScore}/11</span>
                   </div>
                   <Badge
                     variant={
@@ -371,6 +449,10 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
               </div>
               <div className="bg-muted/30 p-4 rounded-lg">
                 <h4 className="font-medium mb-2">Evaluation Guidance</h4>
+                <p className="text-sm mb-2 font-medium">
+                  Note: The benchmarks and evaluations listed below are suggested examples, not exhaustive requirements.
+                  You may use other relevant benchmarks and evaluation methods appropriate for your system.
+                </p>
                 <div className="text-sm whitespace-pre-line">{category.detailedGuidance}</div>
               </div>
             </div>
@@ -419,25 +501,24 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
                   </div>
                 </RadioGroup>
 
+                {benchmarkAnswers[question.id] === "na" && (
+                  <div className="ml-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                    <Label className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                      Explanation Required: Why is this question not applicable?
+                    </Label>
+                    <Textarea
+                      placeholder="Please explain why this question/category is not applicable to your system. This explanation will be included in the evaluation documentation."
+                      value={naExplanations[question.id] || ""}
+                      onChange={(e) => handleNaExplanationChange(question.id, e.target.value)}
+                      rows={3}
+                      className="mt-2 border-yellow-300 dark:border-yellow-700"
+                      required
+                    />
+                  </div>
+                )}
+
                 {benchmarkAnswers[question.id] === "yes" && (
                   <div className="space-y-4 ml-4 p-4 bg-muted/30 rounded-lg">
-                    {question.customFields && (
-                      <div className="space-y-3">
-                        <Label className="text-sm font-medium">Structured Information</Label>
-                        <div className="grid gap-3">
-                          {question.customFields.map((fieldType) => (
-                            <CustomFieldComponent
-                              key={fieldType}
-                              questionId={question.id}
-                              fieldType={fieldType}
-                              value={customFields[question.id]?.[fieldType] || ""}
-                              onChange={(value) => updateCustomField(question.id, fieldType, value)}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
                     <div className="flex items-center justify-between">
                       <Label className="text-sm font-medium">Sources & Evidence</Label>
                       <Button
@@ -467,6 +548,70 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
                         </div>
 
                         <div className="grid gap-3">
+                          {question.customFields && question.customFields.length > 0 && (
+                            <div className="space-y-3 p-3 bg-muted/20 rounded-lg">
+                              <Label className="text-sm font-medium">Structured Information</Label>
+                              <div className="grid gap-3">
+                                {question.customFields.map((fieldType) => (
+                                  <CustomFieldComponent
+                                    key={fieldType}
+                                    questionId={question.id}
+                                    fieldType={fieldType}
+                                    value={source.customFields?.[fieldType] || ""}
+                                    onChange={(value) =>
+                                      updateSourceCustomField(question.id, source.id, fieldType, value, "benchmark")
+                                    }
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          <div>
+                            <Label className="text-xs">Benchmark/Dataset Name</Label>
+                            <Input
+                              placeholder="e.g., MMLU, HellaSwag, GSM8K"
+                              value={source.benchmarkName || ""}
+                              onChange={(e) =>
+                                updateSource(question.id, source.id, "benchmarkName", e.target.value, "benchmark")
+                              }
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-2 gap-3">
+                            <div>
+                              <Label className="text-xs">Version</Label>
+                              <Input
+                                placeholder="e.g., v1.2, 2024-01"
+                                value={source.version || ""}
+                                onChange={(e) =>
+                                  updateSource(question.id, source.id, "version", e.target.value, "benchmark")
+                                }
+                              />
+                            </div>
+                            <div>
+                              <Label className="text-xs">Task Variants</Label>
+                              <Input
+                                placeholder="e.g., multiple choice, generation"
+                                value={source.taskVariants || ""}
+                                onChange={(e) =>
+                                  updateSource(question.id, source.id, "taskVariants", e.target.value, "benchmark")
+                                }
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <Label className="text-xs">Metrics</Label>
+                            <Input
+                              placeholder="e.g., accuracy, F1, BLEU, perplexity"
+                              value={source.metrics || ""}
+                              onChange={(e) =>
+                                updateSource(question.id, source.id, "metrics", e.target.value, "benchmark")
+                              }
+                            />
+                          </div>
+
                           <div>
                             <Label className="text-xs">URL</Label>
                             <Input
@@ -541,7 +686,7 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
           <CardHeader>
             <CardTitle className="text-lg">Part B: Documentation & Process Evaluation</CardTitle>
             <CardDescription>
-              Governance, transparency, and risk management processes ({currentScore.processScore}/8)
+              Governance, transparency, and risk management processes ({currentScore.processScore}/5)
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
@@ -579,27 +724,26 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
                   </div>
                 </RadioGroup>
 
+                {processAnswers[question.id] === "na" && (
+                  <div className="ml-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                    <Label className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                      Explanation Required: Why is this question not applicable?
+                    </Label>
+                    <Textarea
+                      placeholder="Please explain why this question/category is not applicable to your system. This explanation will be included in the evaluation documentation."
+                      value={naExplanations[question.id] || ""}
+                      onChange={(e) => handleNaExplanationChange(question.id, e.target.value)}
+                      rows={3}
+                      className="mt-2 border-yellow-300 dark:border-yellow-700"
+                      required
+                    />
+                  </div>
+                )}
+
                 {processAnswers[question.id] === "yes" && (
                   <div className="space-y-4 ml-4 p-4 bg-muted/30 rounded-lg">
-                    {question.customFields && (
-                      <div className="space-y-3">
-                        <Label className="text-sm font-medium">Structured Information</Label>
-                        <div className="grid gap-3">
-                          {question.customFields.map((fieldType) => (
-                            <CustomFieldComponent
-                              key={fieldType}
-                              questionId={question.id}
-                              fieldType={fieldType}
-                              value={customFields[question.id]?.[fieldType] || ""}
-                              onChange={(value) => updateCustomField(question.id, fieldType, value)}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
                     <div className="flex items-center justify-between">
-                      <Label className="text-sm font-medium">Additional Documentation & Evidence</Label>
+                      <Label className="text-sm font-medium">Documentation & Evidence</Label>
                       <Button
                         type="button"
                         variant="outline"
@@ -627,6 +771,25 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
                         </div>
 
                         <div className="grid gap-3">
+                          {question.customFields && question.customFields.length > 0 && (
+                            <div className="space-y-3 p-3 bg-muted/20 rounded-lg">
+                              <Label className="text-sm font-medium">Structured Information</Label>
+                              <div className="grid gap-3">
+                                {question.customFields.map((fieldType) => (
+                                  <CustomFieldComponent
+                                    key={fieldType}
+                                    questionId={question.id}
+                                    fieldType={fieldType}
+                                    value={source.customFields?.[fieldType] || ""}
+                                    onChange={(value) =>
+                                      updateSourceCustomField(question.id, source.id, fieldType, value, "process")
+                                    }
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
                           <div>
                             <Label className="text-xs">URL</Label>
                             <Input
@@ -694,6 +857,31 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
                 <Separator />
               </div>
             ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Part C: Additional Evaluation Aspects</CardTitle>
+            <CardDescription>{ADDITIONAL_ASPECTS_SECTION.description}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              <Label className="text-sm font-medium">
+                Additional evaluation aspects, methods, or considerations for this category:
+              </Label>
+              <Textarea
+                placeholder="Document any other evaluation approaches, considerations, or aspects that may not have been captured by the structured questions above. This could include novel evaluation methods, domain-specific considerations, or unique aspects of your system's evaluation..."
+                value={additionalAspects}
+                onChange={(e) => setAdditionalAspects(e.target.value)}
+                rows={6}
+                className="min-h-[120px]"
+              />
+              <p className="text-xs text-muted-foreground">
+                This section is for documentation purposes and will not affect the numerical score but will be included
+                in the final evaluation report.
+              </p>
+            </div>
           </CardContent>
         </Card>
 

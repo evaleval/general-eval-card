@@ -40,10 +40,22 @@ export function ResultsDashboard({
   selectedCategories,
   categoryScores,
 }: ResultsDashboardProps) {
-  const selectedCategoryObjects = categories.filter((c) => selectedCategories.includes(c.id))
+  const safeCategories = categories || []
+  const safeSelectedCategories = selectedCategories || []
+  const safeCategoryScores = categoryScores || {}
+
+  console.log("[v0] ResultsDashboard rendering with:", {
+    systemInfo,
+    categoriesCount: safeCategories.length,
+    selectedCount: safeSelectedCategories.length,
+    scoresCount: Object.keys(safeCategoryScores).length,
+    scores: safeCategoryScores,
+  })
+
+  const selectedCategoryObjects = safeCategories.filter((c) => safeSelectedCategories.includes(c.id))
 
   const getStatusCounts = () => {
-    const scores = Object.values(categoryScores)
+    const scores = Object.values(safeCategoryScores)
     return {
       strong: scores.filter((s) => s.status === "strong").length,
       adequate: scores.filter((s) => s.status === "adequate").length,
@@ -56,22 +68,38 @@ export function ResultsDashboard({
     const capability = selectedCategoryObjects.filter((c) => c.type === "capability")
     const risk = selectedCategoryObjects.filter((c) => c.type === "risk")
 
-    const capabilityScores = capability.map((c) => categoryScores[c.id]).filter(Boolean)
-    const riskScores = risk.map((c) => categoryScores[c.id]).filter(Boolean)
+    const capabilityScores = capability.map((c) => safeCategoryScores[c.id]).filter(Boolean)
+    const riskScores = risk.map((c) => safeCategoryScores[c.id]).filter(Boolean)
 
     const avgCapability =
       capabilityScores.length > 0
-        ? capabilityScores.reduce((sum, s) => sum + s.totalScore, 0) / capabilityScores.length
+        ? capabilityScores.reduce((sum, s) => sum + (s.totalScore || 0), 0) / capabilityScores.length
         : 0
-    const avgRisk = riskScores.length > 0 ? riskScores.reduce((sum, s) => sum + s.totalScore, 0) / riskScores.length : 0
+    const avgRisk =
+      riskScores.length > 0 ? riskScores.reduce((sum, s) => sum + (s.totalScore || 0), 0) / riskScores.length : 0
 
-    return { capability: avgCapability, risk: avgRisk }
+    const safeCapability = isNaN(avgCapability) || !isFinite(avgCapability) ? 0 : avgCapability
+    const safeRisk = isNaN(avgRisk) || !isFinite(avgRisk) ? 0 : avgRisk
+
+    console.log("[v0] Capability/Risk breakdown:", {
+      capabilityScores: capabilityScores.length,
+      riskScores: riskScores.length,
+      avgCapability,
+      avgRisk,
+      safeCapability,
+      safeRisk,
+    })
+
+    return {
+      capability: safeCapability,
+      risk: safeRisk,
+    }
   }
 
   const getChartData = () => {
     return selectedCategoryObjects
       .map((category) => {
-        const score = categoryScores[category.id]
+        const score = safeCategoryScores[category.id]
         return {
           name: category.name.length > 20 ? category.name.substring(0, 20) + "..." : category.name,
           fullName: category.name,
@@ -99,23 +127,41 @@ export function ResultsDashboard({
   const chartData = getChartData()
   const pieData = getPieData()
 
-  const totalEvaluated = Object.keys(categoryScores).length
+  const totalEvaluated = Object.keys(safeCategoryScores).length
   const overallAverage =
-    totalEvaluated > 0 ? Object.values(categoryScores).reduce((sum, s) => sum + s.totalScore, 0) / totalEvaluated : 0
+    totalEvaluated > 0
+      ? Object.values(safeCategoryScores).reduce((sum, s) => sum + (s.totalScore || 0), 0) / totalEvaluated
+      : 0
+
+  const safeOverallAverage = isNaN(overallAverage) || !isFinite(overallAverage) ? 0 : overallAverage
+
+  console.log("[v0] Overall average calculation:", {
+    totalEvaluated,
+    overallAverage,
+    safeOverallAverage,
+  })
+
+  const safeToFixed = (value: number, digits = 1): string => {
+    if (isNaN(value) || !isFinite(value)) {
+      console.log("[v0] Warning: Invalid value for toFixed:", value)
+      return "0.0"
+    }
+    return value.toFixed(digits)
+  }
 
   const exportResults = () => {
     const results = {
       systemInfo,
       evaluationDate: new Date().toISOString(),
       summary: {
-        totalCategories: selectedCategories.length,
+        totalCategories: safeSelectedCategories.length,
         evaluatedCategories: totalEvaluated,
-        overallAverage: overallAverage.toFixed(1),
+        overallAverage: safeOverallAverage.toFixed(1),
         statusBreakdown: statusCounts,
       },
-      categoryResults: selectedCategoryObjects.map((category) => ({
+      categoryResults: safeCategories.map((category) => ({
         ...category,
-        score: categoryScores[category.id] || null,
+        score: safeCategoryScores[category.id] || null,
       })),
     }
 
@@ -151,15 +197,15 @@ export function ResultsDashboard({
               <div className="text-sm text-muted-foreground">Categories Evaluated</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">{overallAverage.toFixed(1)}/15</div>
+              <div className="text-2xl font-bold text-foreground">{safeToFixed(safeOverallAverage)}/15</div>
               <div className="text-sm text-muted-foreground">Overall Average</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">{breakdown.capability.toFixed(1)}/15</div>
+              <div className="text-2xl font-bold text-foreground">{safeToFixed(breakdown.capability)}/15</div>
               <div className="text-sm text-muted-foreground">Capability Average</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-foreground">{breakdown.risk.toFixed(1)}/15</div>
+              <div className="text-2xl font-bold text-foreground">{safeToFixed(breakdown.risk)}/15</div>
               <div className="text-sm text-muted-foreground">Risk Average</div>
             </div>
           </div>
@@ -245,7 +291,7 @@ export function ResultsDashboard({
         <CardContent>
           <div className="space-y-4">
             {selectedCategoryObjects.map((category) => {
-              const score = categoryScores[category.id]
+              const score = safeCategoryScores[category.id]
               if (!score) return null
 
               const Icon = STATUS_ICONS[score.status]
@@ -311,7 +357,7 @@ export function ResultsDashboard({
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {selectedCategoryObjects
-                    .filter((c) => categoryScores[c.id]?.status === "insufficient")
+                    .filter((c) => safeCategoryScores[c.id]?.status === "insufficient")
                     .map((category) => (
                       <Badge key={category.id} variant="destructive" className="justify-start">
                         {category.name}
@@ -328,7 +374,7 @@ export function ResultsDashboard({
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   {selectedCategoryObjects
-                    .filter((c) => categoryScores[c.id]?.status === "weak")
+                    .filter((c) => safeCategoryScores[c.id]?.status === "weak")
                     .map((category) => (
                       <Badge key={category.id} variant="outline" className="justify-start">
                         {category.name}

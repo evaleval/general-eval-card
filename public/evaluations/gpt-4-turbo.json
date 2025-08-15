@@ -1,0 +1,986 @@
+{
+  "id": "gpt-4-turbo-2024",
+  "systemName": "GPT-4 Turbo",
+  "provider": "OpenAI",
+  "version": "gpt-4-turbo-2024-04-09",
+  "modality": "Text-to-Text",
+  "evaluationDate": "2024-01-15",
+  "deploymentContext": "Production API",
+  "evaluator": "AI Safety Research Team",
+  "selectedCategories": [
+    "language-communication",
+    "problem-solving",
+    "creativity-innovation",
+    "learning-memory",
+    "social-intelligence",
+    "perception-vision",
+    "metacognition",
+    "physical-manipulation",
+    "robotic-intelligence",
+    "harmful-content",
+    "bias-fairness",
+    "information-integrity",
+    "privacy-data",
+    "security-robustness",
+    "dangerous-capabilities",
+    "human-ai-interaction",
+    "governance-accountability",
+    "value-chain",
+    "environmental-impact",
+    "economic-displacement"
+  ],
+  "overallStats": {
+    "totalApplicable": 20,
+    "capabilityApplicable": 9,
+    "riskApplicable": 11,
+    "completenessScore": 92,
+    "strongCategories": [
+      "language-communication",
+      "problem-solving",
+      "creativity-innovation",
+      "learning-memory",
+      "harmful-content",
+      "information-integrity",
+      "privacy-data"
+    ],
+    "adequateCategories": [
+      "social-intelligence",
+      "perception-vision",
+      "metacognition",
+      "bias-fairness",
+      "security-robustness",
+      "human-ai-interaction",
+      "governance-accountability"
+    ],
+    "weakCategories": [
+      "physical-manipulation",
+      "robotic-intelligence",
+      "dangerous-capabilities",
+      "environmental-impact",
+      "economic-displacement"
+    ],
+    "insufficientCategories": ["value-chain"]
+  },
+  "categoryEvaluations": {
+    "language-communication": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4",
+            "description": "GPT-4 technical report showing performance on language understanding benchmarks",
+            "sourceType": "external",
+            "benchmarkName": "MMLU, HellaSwag, ARC",
+            "metrics": "Accuracy, F1-score",
+            "score": "87.4% on MMLU"
+          }
+        ],
+        "A2": [
+          {
+            "url": "https://openai.com/safety/gpt-4",
+            "description": "Safety evaluation results meeting regulatory standards for language models",
+            "sourceType": "internal",
+            "thresholds": "85% accuracy on safety benchmarks",
+            "regulatorySource": "NIST AI RMF guidelines",
+            "complianceStatus": "Compliant"
+          }
+        ],
+        "A3": [
+          {
+            "url": "https://arxiv.org/abs/2303.08774",
+            "description": "Comparative analysis showing GPT-4 outperforms GPT-3.5 and Claude-1 on language tasks",
+            "sourceType": "external",
+            "comparativeScores": "GPT-4: 87.4%, GPT-3.5: 70.0%, Claude-1: 76.5%",
+            "comparisonTargets": "GPT-3.5, Claude-1, PaLM-2",
+            "significance": "p < 0.001 for all comparisons"
+          }
+        ],
+        "A4": [
+          {
+            "url": "https://openai.com/research/gpt-4-system-card",
+            "description": "Adversarial robustness testing results",
+            "sourceType": "internal",
+            "testTypes": "Prompt injection, adversarial examples, distribution shift",
+            "failureRates": "5.2% on adversarial prompts",
+            "robustnessMetrics": "Attack success rate, semantic similarity"
+          }
+        ],
+        "A5": [
+          {
+            "url": "https://openai.com/api/monitoring",
+            "description": "Live production monitoring metrics",
+            "sourceType": "internal",
+            "liveMetrics": "Response quality, safety violations, latency",
+            "samplingCadence": "Real-time with 1% sampling",
+            "alertThresholds": "Safety violation rate > 0.1%"
+          }
+        ],
+        "A6": [
+          {
+            "url": "https://openai.com/research/gpt-4-contamination",
+            "description": "Contamination analysis for benchmark datasets",
+            "sourceType": "internal",
+            "procedure": "N-gram overlap detection, URL matching",
+            "contaminationRate": "< 2% for major benchmarks",
+            "mitigations": "Excluded contaminated samples, reported adjusted scores"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4",
+            "description": "Comprehensive technical documentation of GPT-4 language capabilities",
+            "documentType": "Technical Report",
+            "scope": "Natural language understanding, generation, and reasoning",
+            "successFailureDefinitions": "Success: >80% accuracy on language benchmarks",
+            "hypotheses": "Scaling improves language understanding and generation quality"
+          }
+        ],
+        "B2": [
+          {
+            "url": "https://github.com/openai/evals",
+            "description": "Open-source evaluation framework and prompts",
+            "documentType": "Code Repository",
+            "replicationPackage": "Evaluation code, prompts, configurations",
+            "accessLevel": "Public",
+            "proxies": "N/A - full replication package available"
+          }
+        ],
+        "B5": [
+          {
+            "url": "https://openai.com/research/gpt-4-system-card",
+            "description": "External expert review of language capabilities",
+            "documentType": "System Card",
+            "reviewers": "Academic linguists, NLP researchers",
+            "feedbackChanges": "Updated evaluation methodology based on expert input",
+            "disagreements": "Minor disagreements on multilingual evaluation scope"
+          }
+        ],
+        "B6": [
+          {
+            "url": "https://openai.com/research/gpt-4",
+            "description": "Results visualization with uncertainty quantification",
+            "documentType": "Technical Report",
+            "uncertaintyDisclosure": "95% confidence intervals shown",
+            "axesConsistency": "Consistent scales across all comparisons",
+            "sampleSizes": "N=1000+ for each benchmark",
+            "selectionCriteria": "Standard benchmark selection criteria documented"
+          }
+        ],
+        "B8": [
+          {
+            "url": "https://openai.com/safety/process",
+            "description": "Continuous evaluation and improvement process",
+            "documentType": "Process Documentation",
+            "triggers": "Model updates, performance drift, safety incidents",
+            "versionedSpecs": "Evaluation specifications versioned with model releases",
+            "auditTrail": "Complete audit trail of evaluation changes",
+            "mitigationProtocols": "Immediate response protocols for safety issues",
+            "retestProcedures": "Systematic retest after any model modifications"
+          }
+        ]
+      },
+      "additionalAspects": "GPT-4 demonstrates exceptional multilingual capabilities and shows strong performance in code generation tasks. The model exhibits improved reasoning compared to previous versions and maintains consistency across different prompt styles."
+    },
+    "problem-solving": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "no"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4",
+            "description": "Mathematical reasoning and problem-solving benchmark results",
+            "sourceType": "external",
+            "benchmarkName": "GSM8K, MATH, HumanEval",
+            "metrics": "Accuracy on math problems, code correctness",
+            "score": "92% on GSM8K, 42.5% on MATH, 67% on HumanEval"
+          }
+        ],
+        "A2": [
+          {
+            "url": "https://openai.com/safety/mathematical-reasoning",
+            "description": "Mathematical accuracy standards for educational applications",
+            "sourceType": "cooperative",
+            "thresholds": "90% accuracy on grade-level math problems",
+            "regulatorySource": "Educational technology standards",
+            "complianceStatus": "Meets standards for grades K-12"
+          }
+        ],
+        "A3": [
+          {
+            "url": "https://arxiv.org/abs/2303.12712",
+            "description": "Comparative analysis of mathematical reasoning capabilities",
+            "sourceType": "external",
+            "comparativeScores": "GPT-4: 92%, GPT-3.5: 57%, PaLM-2: 78%",
+            "comparisonTargets": "GPT-3.5, PaLM-2, Claude-1, Codex",
+            "significance": "Statistically significant improvements across all benchmarks"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4",
+            "description": "Documentation of problem-solving capabilities and limitations",
+            "documentType": "Technical Report",
+            "scope": "Mathematical reasoning, logical inference, code generation",
+            "successFailureDefinitions": "Success: Correct solution with valid reasoning steps",
+            "hypotheses": "Chain-of-thought reasoning improves problem-solving accuracy"
+          }
+        ]
+      },
+      "additionalAspects": "Strong performance on mathematical reasoning but struggles with complex multi-step problems requiring external tools. Shows good code generation capabilities but may produce inefficient solutions for complex algorithms."
+    },
+    "creativity-innovation": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4-creativity",
+            "description": "Creative writing and ideation benchmark results",
+            "sourceType": "internal",
+            "benchmarkName": "CREAM, Alternative Uses Task, Creative Story Generation",
+            "metrics": "Originality score, fluency, relevance",
+            "score": "8.2/10 originality, 9.1/10 fluency"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-creativity",
+            "description": "Creative capability evaluation methodology",
+            "documentType": "Research Paper",
+            "scope": "Creative writing, ideation, artistic description",
+            "successFailureDefinitions": "Success: Novel, coherent, and valuable creative output",
+            "hypotheses": "Large-scale training enables emergent creative capabilities"
+          }
+        ]
+      },
+      "additionalAspects": "Demonstrates strong creative writing abilities and can generate novel ideas across domains. However, creativity may be limited by training data patterns and lacks true artistic intuition."
+    },
+    "learning-memory": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4-learning",
+            "description": "In-context learning and few-shot performance evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Few-shot learning benchmarks, in-context learning tasks",
+            "metrics": "Few-shot accuracy, learning efficiency",
+            "score": "85% accuracy with 5 examples"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-learning",
+            "description": "Learning and memory capability documentation",
+            "documentType": "Technical Report",
+            "scope": "In-context learning, knowledge retention, adaptation",
+            "successFailureDefinitions": "Success: Rapid adaptation to new tasks with few examples",
+            "hypotheses": "Transformer architecture enables effective in-context learning"
+          }
+        ]
+      },
+      "additionalAspects": "Excellent in-context learning capabilities but limited by context window. Cannot update knowledge base or learn from interactions permanently."
+    },
+    "social-intelligence": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4-social",
+            "description": "Social intelligence and theory of mind evaluation",
+            "sourceType": "external",
+            "benchmarkName": "ToMi, Social IQa, EmoBench",
+            "metrics": "Theory of mind accuracy, social reasoning score",
+            "score": "78% on ToMi, 82% on Social IQa"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-social",
+            "description": "Social intelligence evaluation methodology",
+            "documentType": "Research Paper",
+            "scope": "Theory of mind, emotional understanding, social reasoning",
+            "successFailureDefinitions": "Success: Appropriate social responses and emotional understanding",
+            "hypotheses": "Language modeling captures implicit social knowledge"
+          }
+        ]
+      },
+      "additionalAspects": "Shows good understanding of social contexts and emotional cues but may lack nuanced cultural understanding and can be overly formal in casual interactions."
+    },
+    "perception-vision": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4v",
+            "description": "Vision capabilities evaluation on standard benchmarks",
+            "sourceType": "external",
+            "benchmarkName": "VQA, COCO Captions, TextVQA",
+            "metrics": "VQA accuracy, caption quality scores",
+            "score": "77.2% on VQA, 85.5% on COCO Captions"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4v",
+            "description": "Vision capability evaluation methodology",
+            "documentType": "Technical Report",
+            "scope": "Image understanding, visual question answering, scene description",
+            "successFailureDefinitions": "Success: Accurate image interpretation and description",
+            "hypotheses": "Multimodal training enables visual understanding"
+          }
+        ]
+      },
+      "additionalAspects": "Strong performance on standard vision benchmarks but may struggle with fine-grained visual details and spatial reasoning in complex scenes."
+    },
+    "metacognition": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4-metacognition",
+            "description": "Confidence calibration and self-awareness evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Confidence calibration benchmarks, uncertainty quantification",
+            "metrics": "Calibration error, uncertainty correlation",
+            "score": "ECE: 0.12, Brier score: 0.18"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-metacognition",
+            "description": "Metacognitive capability evaluation",
+            "documentType": "Research Paper",
+            "scope": "Self-awareness, confidence calibration, uncertainty expression",
+            "successFailureDefinitions": "Success: Well-calibrated confidence and appropriate uncertainty",
+            "hypotheses": "Large models develop implicit metacognitive abilities"
+          }
+        ]
+      },
+      "additionalAspects": "Shows reasonable confidence calibration but may be overconfident in some domains. Can express uncertainty but calibration varies across different types of questions."
+    },
+    "physical-manipulation": {
+      "benchmarkAnswers": {
+        "A1": "no",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {},
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-limitations",
+            "description": "Documentation of physical manipulation limitations",
+            "documentType": "Technical Report",
+            "scope": "Physical manipulation capabilities - not applicable",
+            "successFailureDefinitions": "N/A - Text-only model",
+            "hypotheses": "Physical manipulation requires embodied systems"
+          }
+        ]
+      },
+      "additionalAspects": "GPT-4 is a text-only model and has no physical manipulation capabilities. This category is not applicable to the current system architecture."
+    },
+    "robotic-intelligence": {
+      "benchmarkAnswers": {
+        "A1": "no",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {},
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-limitations",
+            "description": "Documentation of robotic intelligence limitations",
+            "documentType": "Technical Report",
+            "scope": "Robotic intelligence - not applicable",
+            "successFailureDefinitions": "N/A - No robotic embodiment",
+            "hypotheses": "Robotic intelligence requires physical embodiment"
+          }
+        ]
+      },
+      "additionalAspects": "GPT-4 lacks robotic embodiment and autonomous physical capabilities. This category is not applicable to the current system."
+    },
+    "harmful-content": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/safety/gpt-4",
+            "description": "Comprehensive safety evaluation including harmful content generation",
+            "sourceType": "internal",
+            "benchmarkName": "RealToxicityPrompts, HarmBench, AIR-Bench",
+            "metrics": "Toxicity rate, harmful content generation rate",
+            "score": "0.12% toxicity rate, 2.1% harmful refusal rate"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/safety/gpt-4",
+            "description": "Harmful content generation risk assessment",
+            "documentType": "Safety Report",
+            "scope": "Violence, hate speech, illegal activities, self-harm content",
+            "successFailureDefinitions": "Success: <0.1% harmful content generation",
+            "hypotheses": "Safety training reduces harmful content generation"
+          }
+        ]
+      },
+      "additionalAspects": "Strong safety measures in place with low harmful content generation rates. Continuous monitoring and improvement of safety filters."
+    },
+    "bias-fairness": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4-bias",
+            "description": "Comprehensive bias evaluation across demographic groups",
+            "sourceType": "external",
+            "benchmarkName": "Winogender, CrowS-Pairs, BOLD, BBQ",
+            "metrics": "Bias score, demographic parity, equalized odds",
+            "score": "15% bias reduction vs GPT-3.5"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-bias",
+            "description": "Bias and fairness evaluation methodology",
+            "documentType": "Research Paper",
+            "scope": "Gender, racial, religious, and socioeconomic bias",
+            "successFailureDefinitions": "Success: Equitable performance across demographic groups",
+            "hypotheses": "Diverse training data and bias mitigation reduce unfair outcomes"
+          }
+        ]
+      },
+      "additionalAspects": "Ongoing efforts to reduce bias but some demographic disparities remain. Regular bias audits and mitigation strategies are in place."
+    },
+    "information-integrity": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/gpt-4-truthfulness",
+            "description": "Factual accuracy and hallucination evaluation",
+            "sourceType": "external",
+            "benchmarkName": "TruthfulQA, FEVER, HaluEval, FActScore",
+            "metrics": "Truthfulness rate, hallucination frequency, citation accuracy",
+            "score": "83% truthfulness on TruthfulQA, 12% hallucination rate"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/gpt-4-truthfulness",
+            "description": "Information integrity evaluation methodology",
+            "documentType": "Research Paper",
+            "scope": "Factual accuracy, misinformation resistance, source attribution",
+            "successFailureDefinitions": "Success: >80% factual accuracy, <10% hallucination rate",
+            "hypotheses": "Improved training reduces hallucination and improves factual accuracy"
+          }
+        ]
+      },
+      "additionalAspects": "Strong performance on factual accuracy benchmarks but still prone to hallucination in some domains. Ongoing work to improve citation accuracy and source attribution."
+    },
+    "privacy-data": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/privacy/gpt-4",
+            "description": "Privacy protection and data leakage evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Membership inference attacks, PII extraction tests",
+            "metrics": "MIA success rate, PII leakage rate",
+            "score": "3.2% MIA success rate, <0.1% PII leakage"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/privacy/gpt-4",
+            "description": "Privacy and data protection evaluation",
+            "documentType": "Privacy Report",
+            "scope": "Training data privacy, inference privacy, PII protection",
+            "successFailureDefinitions": "Success: <5% MIA success, <0.1% PII leakage",
+            "hypotheses": "Differential privacy and data filtering protect user privacy"
+          }
+        ]
+      },
+      "additionalAspects": "Strong privacy protections with low data leakage rates. Comprehensive data governance and privacy-preserving training techniques."
+    },
+    "security-robustness": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/security/gpt-4",
+            "description": "Security and robustness evaluation",
+            "sourceType": "external",
+            "benchmarkName": "AdvBench, prompt injection tests, OWASP LLM Top 10",
+            "metrics": "Attack success rate, robustness score",
+            "score": "8.5% prompt injection success rate"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/security/gpt-4",
+            "description": "Security and robustness evaluation methodology",
+            "documentType": "Security Report",
+            "scope": "Adversarial attacks, prompt injection, model extraction",
+            "successFailureDefinitions": "Success: <10% attack success rate",
+            "hypotheses": "Adversarial training improves robustness"
+          }
+        ]
+      },
+      "additionalAspects": "Good robustness against common attacks but some vulnerabilities to sophisticated prompt injection remain. Ongoing security improvements and monitoring."
+    },
+    "dangerous-capabilities": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "no",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/safety/dangerous-capabilities",
+            "description": "Dangerous capabilities evaluation including CBRN and dual-use",
+            "sourceType": "internal",
+            "benchmarkName": "CBRN evaluation, dual-use assessment",
+            "metrics": "Dangerous information generation rate",
+            "score": "0.8% dangerous information generation"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/safety/dangerous-capabilities",
+            "description": "Dangerous capabilities risk assessment",
+            "documentType": "Safety Report",
+            "scope": "CBRN information, dual-use technologies, weapons information",
+            "successFailureDefinitions": "Success: <1% dangerous information generation",
+            "hypotheses": "Safety training prevents dangerous capability misuse"
+          }
+        ]
+      },
+      "additionalAspects": "Low rates of dangerous information generation with strong safety filters. Ongoing monitoring for emerging dangerous capabilities."
+    },
+    "human-ai-interaction": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/human-ai-interaction",
+            "description": "Human-AI interaction safety evaluation",
+            "sourceType": "external",
+            "benchmarkName": "Trust calibration, manipulation detection",
+            "metrics": "Trust calibration score, manipulation rate",
+            "score": "0.78 trust calibration, 2.1% manipulation detection"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/human-ai-interaction",
+            "description": "Human-AI interaction risk evaluation",
+            "documentType": "Research Paper",
+            "scope": "Over-reliance, manipulation, transparency",
+            "successFailureDefinitions": "Success: Well-calibrated trust, no manipulation",
+            "hypotheses": "Transparent AI reduces harmful interaction patterns"
+          }
+        ]
+      },
+      "additionalAspects": "Generally safe human-AI interactions with good trust calibration. Some risk of over-reliance in certain domains."
+    },
+    "governance-accountability": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "no",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/governance/gpt-4",
+            "description": "Governance and accountability framework evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Transparency benchmarks, accountability metrics",
+            "metrics": "Documentation completeness, traceability score",
+            "score": "92% documentation completeness"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/governance/gpt-4",
+            "description": "Governance and accountability evaluation",
+            "documentType": "Governance Report",
+            "scope": "Transparency, accountability, oversight mechanisms",
+            "successFailureDefinitions": "Success: Complete documentation and clear accountability",
+            "hypotheses": "Strong governance reduces deployment risks"
+          }
+        ]
+      },
+      "additionalAspects": "Strong governance framework with comprehensive documentation. Clear accountability structures and oversight mechanisms in place."
+    },
+    "environmental-impact": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "yes",
+        "B8": "no"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/sustainability/gpt-4",
+            "description": "Environmental impact assessment",
+            "sourceType": "internal",
+            "benchmarkName": "Carbon footprint estimation, energy efficiency",
+            "metrics": "CO2 emissions, energy consumption per token",
+            "score": "0.0012 kg CO2 per 1000 tokens"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/sustainability/gpt-4",
+            "description": "Environmental impact evaluation methodology",
+            "documentType": "Sustainability Report",
+            "scope": "Training emissions, inference energy, hardware lifecycle",
+            "successFailureDefinitions": "Success: Minimized environmental impact per capability unit",
+            "hypotheses": "Efficiency improvements reduce environmental impact"
+          }
+        ]
+      },
+      "additionalAspects": "Significant environmental impact from training and inference. Ongoing efforts to improve efficiency and use renewable energy."
+    },
+    "economic-displacement": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "yes",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://openai.com/research/economic-impact",
+            "description": "Economic displacement impact assessment",
+            "sourceType": "external",
+            "benchmarkName": "Job automation potential, task displacement analysis",
+            "metrics": "Automation potential score, job displacement risk",
+            "score": "35% of knowledge work tasks automatable"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/research/economic-impact",
+            "description": "Economic displacement evaluation",
+            "documentType": "Economic Impact Report",
+            "scope": "Job displacement, skill requirements, economic benefits",
+            "successFailureDefinitions": "Success: Net positive economic impact with transition support",
+            "hypotheses": "AI augmentation creates more value than displacement costs"
+          }
+        ]
+      },
+      "additionalAspects": "Significant potential for economic displacement in knowledge work. Need for retraining programs and transition support for affected workers."
+    },
+    "value-chain": {
+      "benchmarkAnswers": {
+        "A1": "no",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {},
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://openai.com/supply-chain/gpt-4",
+            "description": "Value chain risk assessment documentation",
+            "documentType": "Supply Chain Report",
+            "scope": "Data sourcing, third-party dependencies, supply chain security",
+            "successFailureDefinitions": "Success: Secure and ethical value chain",
+            "hypotheses": "Comprehensive supply chain management reduces risks"
+          }
+        ]
+      },
+      "additionalAspects": "Limited transparency in value chain evaluation. Need for more comprehensive supply chain risk assessment and third-party dependency management."
+    }
+  }
+}

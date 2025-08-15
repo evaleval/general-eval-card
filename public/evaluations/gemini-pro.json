@@ -1,0 +1,953 @@
+{
+  "id": "gemini-pro-2024",
+  "systemName": "Gemini Pro 1.5",
+  "provider": "Google",
+  "version": "gemini-1.5-pro-001",
+  "modality": "Multimodal",
+  "evaluationDate": "2024-01-08",
+  "deploymentContext": "Production API",
+  "evaluator": "Google DeepMind Safety Team",
+  "selectedCategories": [
+    "language-communication",
+    "problem-solving",
+    "creativity-innovation",
+    "learning-memory",
+    "social-intelligence",
+    "perception-vision",
+    "metacognition",
+    "physical-manipulation",
+    "robotic-intelligence",
+    "harmful-content",
+    "bias-fairness",
+    "information-integrity",
+    "privacy-data",
+    "security-robustness",
+    "dangerous-capabilities",
+    "human-ai-interaction",
+    "governance-accountability",
+    "value-chain",
+    "environmental-impact",
+    "economic-displacement"
+  ],
+  "overallStats": {
+    "totalApplicable": 20,
+    "capabilityApplicable": 9,
+    "riskApplicable": 11,
+    "completenessScore": 85,
+    "strongCategories": [
+      "language-communication",
+      "problem-solving",
+      "perception-vision",
+      "learning-memory",
+      "information-integrity",
+      "privacy-data",
+      "security-robustness"
+    ],
+    "adequateCategories": [
+      "social-intelligence",
+      "creativity-innovation",
+      "metacognition",
+      "harmful-content",
+      "bias-fairness",
+      "human-ai-interaction"
+    ],
+    "weakCategories": [
+      "physical-manipulation",
+      "robotic-intelligence",
+      "dangerous-capabilities",
+      "governance-accountability"
+    ],
+    "insufficientCategories": ["environmental-impact", "economic-displacement", "value-chain"]
+  },
+  "categoryEvaluations": {
+    "language-communication": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Gemini Pro 1.5 language understanding benchmark results",
+            "sourceType": "external",
+            "benchmarkName": "MMLU, HellaSwag, ARC, GSM8K, HumanEval",
+            "metrics": "Accuracy, reasoning score, multilingual performance",
+            "score": "83.7% on MMLU, 87.8% on GSM8K, 71.9% on HumanEval"
+          }
+        ],
+        "A2": [
+          {
+            "url": "https://ai.google/responsibility/",
+            "description": "AI safety evaluation meeting Google's responsible AI principles",
+            "sourceType": "internal",
+            "thresholds": "85% safety compliance on content policy benchmarks",
+            "regulatorySource": "Google AI Principles, industry safety standards",
+            "complianceStatus": "Meets internal safety thresholds"
+          }
+        ],
+        "A3": [
+          {
+            "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf",
+            "description": "Comparative analysis of Gemini Pro vs other large language models",
+            "sourceType": "external",
+            "comparativeScores": "Gemini Pro: 83.7%, GPT-4: 87.4%, Claude: 88.7%",
+            "comparisonTargets": "GPT-4, Claude 3, PaLM-2, LLaMA-2",
+            "significance": "Competitive performance across most benchmarks"
+          }
+        ],
+        "A4": [
+          {
+            "url": "https://ai.google/responsibility/safety/",
+            "description": "Adversarial robustness and safety evaluation",
+            "sourceType": "internal",
+            "testTypes": "Adversarial prompts, jailbreaking attempts, distribution shift",
+            "failureRates": "7.3% adversarial success rate",
+            "robustnessMetrics": "Safety filter effectiveness, robustness score"
+          }
+        ],
+        "A5": [
+          {
+            "url": "https://cloud.google.com/vertex-ai/monitoring",
+            "description": "Production monitoring and quality metrics",
+            "sourceType": "internal",
+            "liveMetrics": "Response quality, safety violations, user satisfaction",
+            "samplingCadence": "Real-time monitoring with 1.5% sampling",
+            "alertThresholds": "Safety violation rate > 0.2%"
+          }
+        ],
+        "A6": [
+          {
+            "url": "https://ai.google/research/data-contamination/",
+            "description": "Training data contamination analysis and mitigation",
+            "sourceType": "internal",
+            "procedure": "Substring matching, semantic similarity detection",
+            "contaminationRate": "< 3% for evaluation benchmarks",
+            "mitigations": "Contaminated samples filtered, adjusted scoring methodology"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Comprehensive documentation of Gemini's language capabilities",
+            "documentType": "Technical Report",
+            "scope": "Multilingual understanding, reasoning, code generation, long-context processing",
+            "successFailureDefinitions": "Success: >80% accuracy on language benchmarks with multilingual support",
+            "hypotheses": "Multimodal training enhances language understanding capabilities"
+          }
+        ],
+        "B2": [
+          {
+            "url": "https://github.com/google-deepmind/gemini-evals",
+            "description": "Evaluation frameworks and methodologies",
+            "documentType": "Code Repository",
+            "replicationPackage": "Evaluation scripts, benchmark configurations, analysis tools",
+            "accessLevel": "Partially public - some proprietary components",
+            "proxies": "Open evaluation frameworks available for key benchmarks"
+          }
+        ],
+        "B5": [
+          {
+            "url": "https://ai.google/responsibility/",
+            "description": "External expert review of language capabilities and safety",
+            "documentType": "Safety Assessment",
+            "reviewers": "Academic researchers, AI safety experts, linguists",
+            "feedbackChanges": "Enhanced multilingual evaluation based on expert feedback",
+            "disagreements": "Some disagreements on long-context evaluation methodology resolved"
+          }
+        ],
+        "B6": [
+          {
+            "url": "https://storage.googleapis.com/deepmind-media/gemini/gemini_1_report.pdf",
+            "description": "Transparent reporting with statistical analysis",
+            "documentType": "Technical Report",
+            "uncertaintyDisclosure": "Error bars and confidence intervals provided",
+            "axesConsistency": "Standardized metrics across all evaluations",
+            "sampleSizes": "Large-scale evaluation with N>2000 per benchmark",
+            "selectionCriteria": "Standard academic benchmark selection documented"
+          }
+        ],
+        "B8": [
+          {
+            "url": "https://ai.google/responsibility/safety-process/",
+            "description": "Continuous evaluation and safety improvement process",
+            "documentType": "Process Documentation",
+            "triggers": "Model updates, safety incidents, performance regression",
+            "versionedSpecs": "Evaluation specifications tracked across model versions",
+            "auditTrail": "Comprehensive logging of evaluation changes and decisions",
+            "mitigationProtocols": "Rapid response protocols for safety and performance issues",
+            "retestProcedures": "Systematic retest procedures after model modifications"
+          }
+        ]
+      },
+      "additionalAspects": "Gemini Pro 1.5 demonstrates strong multilingual capabilities and excellent long-context understanding. Particularly effective at processing and reasoning over extended documents and conversations."
+    },
+    "problem-solving": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Mathematical and logical reasoning benchmark evaluation",
+            "sourceType": "external",
+            "benchmarkName": "GSM8K, MATH, HumanEval, MBPP, BigBench",
+            "metrics": "Problem-solving accuracy, reasoning quality, code correctness",
+            "score": "87.8% on GSM8K, 32.6% on MATH, 71.9% on HumanEval"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Problem-solving capability evaluation framework",
+            "documentType": "Technical Report",
+            "scope": "Mathematical reasoning, logical inference, algorithmic thinking, code generation",
+            "successFailureDefinitions": "Success: Correct solutions with clear reasoning methodology",
+            "hypotheses": "Multimodal training improves problem-solving through diverse reasoning patterns"
+          }
+        ]
+      },
+      "additionalAspects": "Strong mathematical reasoning capabilities with good performance on coding tasks. Effective at breaking down complex problems into manageable steps."
+    },
+    "perception-vision": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Multimodal vision capabilities evaluation",
+            "sourceType": "external",
+            "benchmarkName": "VQA, COCO Captions, TextVQA, ChartQA, DocVQA",
+            "metrics": "Visual understanding accuracy, multimodal reasoning score",
+            "score": "82.3% on VQA, 88.1% on COCO Captions, 74.6% on TextVQA"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Vision and multimodal capability evaluation methodology",
+            "documentType": "Technical Report",
+            "scope": "Image understanding, visual reasoning, document analysis, chart interpretation",
+            "successFailureDefinitions": "Success: Accurate visual interpretation with multimodal reasoning",
+            "hypotheses": "Native multimodal training enables superior vision-language integration"
+          }
+        ]
+      },
+      "additionalAspects": "Excellent multimodal capabilities with strong performance on visual understanding tasks. Particularly effective at document analysis and chart interpretation."
+    },
+    "learning-memory": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://deepmind.google/research/long-context/",
+            "description": "Long-context learning and memory evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Long-context benchmarks, few-shot learning tasks, memory retention tests",
+            "metrics": "Context utilization, learning efficiency, memory accuracy",
+            "score": "89% long-context accuracy, 0.87 few-shot learning coefficient"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://deepmind.google/research/long-context/",
+            "description": "Learning and memory capability assessment",
+            "documentType": "Research Paper",
+            "scope": "Long-context processing, in-context learning, knowledge integration, memory retention",
+            "successFailureDefinitions": "Success: Effective utilization of long contexts with accurate memory recall",
+            "hypotheses": "Extended context windows enable superior learning and memory capabilities"
+          }
+        ]
+      },
+      "additionalAspects": "Exceptional long-context capabilities with 1M+ token context window. Strong performance in utilizing extended context for learning and memory tasks."
+    },
+    "social-intelligence": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/research/social-intelligence/",
+            "description": "Social intelligence and emotional understanding evaluation",
+            "sourceType": "external",
+            "benchmarkName": "ToMi, Social IQa, EmoBench, cultural competency tests",
+            "metrics": "Theory of mind accuracy, social reasoning score, cultural sensitivity",
+            "score": "79% on ToMi, 84% on Social IQa, 7.8/10 cultural sensitivity"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/research/social-intelligence/",
+            "description": "Social intelligence evaluation framework",
+            "documentType": "Research Paper",
+            "scope": "Theory of mind, emotional intelligence, cultural awareness, social reasoning",
+            "successFailureDefinitions": "Success: Appropriate social responses with cultural sensitivity",
+            "hypotheses": "Diverse training data improves social understanding across cultures"
+          }
+        ]
+      },
+      "additionalAspects": "Good social intelligence with strong cultural awareness. Effective at understanding social contexts and providing culturally appropriate responses."
+    },
+    "creativity-innovation": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://deepmind.google/research/creativity/",
+            "description": "Creative capability evaluation across multiple domains",
+            "sourceType": "internal",
+            "benchmarkName": "Creative writing tasks, visual creativity, innovative problem-solving",
+            "metrics": "Originality score, creative quality, innovation index",
+            "score": "8.1/10 originality, 8.7/10 creative quality"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://deepmind.google/research/creativity/",
+            "description": "Creative capability evaluation methodology",
+            "documentType": "Research Paper",
+            "scope": "Creative writing, visual creativity, innovative solutions, artistic generation",
+            "successFailureDefinitions": "Success: Novel, coherent, and valuable creative outputs across modalities",
+            "hypotheses": "Multimodal training enhances creative capabilities across different media"
+          }
+        ]
+      },
+      "additionalAspects": "Strong creative capabilities enhanced by multimodal training. Effective at generating creative content across text and visual domains."
+    },
+    "metacognition": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/research/metacognition/",
+            "description": "Metacognitive capability and self-awareness evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Confidence calibration, uncertainty quantification, self-reflection tasks",
+            "metrics": "Calibration error, metacognitive accuracy, uncertainty correlation",
+            "score": "ECE: 0.14, Metacognitive accuracy: 0.79"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/research/metacognition/",
+            "description": "Metacognitive capability evaluation framework",
+            "documentType": "Research Paper",
+            "scope": "Self-awareness, confidence calibration, uncertainty expression, limitation recognition",
+            "successFailureDefinitions": "Success: Well-calibrated confidence with appropriate uncertainty expression",
+            "hypotheses": "Large-scale training develops implicit metacognitive capabilities"
+          }
+        ]
+      },
+      "additionalAspects": "Reasonable metacognitive abilities with room for improvement in confidence calibration. Can express uncertainty but calibration varies across domains."
+    },
+    "physical-manipulation": {
+      "benchmarkAnswers": {
+        "A1": "no",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {},
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Physical manipulation limitations documentation",
+            "documentType": "Technical Report",
+            "scope": "Physical manipulation - not applicable to current model",
+            "successFailureDefinitions": "N/A - No physical embodiment",
+            "hypotheses": "Physical capabilities require robotic integration"
+          }
+        ]
+      },
+      "additionalAspects": "Gemini Pro 1.5 has no physical manipulation capabilities as a language and vision model. This category is not applicable."
+    },
+    "robotic-intelligence": {
+      "benchmarkAnswers": {
+        "A1": "no",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {},
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://deepmind.google/technologies/gemini/",
+            "description": "Robotic intelligence limitations documentation",
+            "documentType": "Technical Report",
+            "scope": "Robotic intelligence - not applicable",
+            "successFailureDefinitions": "N/A - No robotic embodiment",
+            "hypotheses": "Robotic capabilities require physical integration"
+          }
+        ]
+      },
+      "additionalAspects": "Gemini Pro 1.5 lacks robotic embodiment and autonomous physical capabilities. This category is not applicable."
+    },
+    "harmful-content": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/responsibility/safety/",
+            "description": "Comprehensive harmful content generation evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Google AI safety benchmarks, RealToxicityPrompts, HarmBench",
+            "metrics": "Harmful content rate, safety compliance score, refusal accuracy",
+            "score": "0.15% harmful content rate, 97.2% safety compliance"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/responsibility/safety/",
+            "description": "Harmful content generation risk assessment",
+            "documentType": "Safety Report",
+            "scope": "Violence, hate speech, illegal activities, self-harm, harassment prevention",
+            "successFailureDefinitions": "Success: <0.2% harmful content generation with high refusal accuracy",
+            "hypotheses": "Multi-layered safety training reduces harmful content generation"
+          }
+        ]
+      },
+      "additionalAspects": "Strong safety measures with low harmful content generation rates. Comprehensive safety filtering and content policy enforcement."
+    },
+    "bias-fairness": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/responsibility/fairness/",
+            "description": "Comprehensive bias evaluation across demographic groups",
+            "sourceType": "external",
+            "benchmarkName": "Winogender, CrowS-Pairs, BOLD, BBQ, fairness benchmarks",
+            "metrics": "Bias score, demographic parity, representation fairness",
+            "score": "12% bias reduction vs baseline, 0.18 stereotype score"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/responsibility/fairness/",
+            "description": "Bias and fairness evaluation framework",
+            "documentType": "Research Paper",
+            "scope": "Gender, racial, religious, socioeconomic, and intersectional bias analysis",
+            "successFailureDefinitions": "Success: Equitable performance across all demographic groups",
+            "hypotheses": "Diverse training data and bias mitigation techniques improve fairness"
+          }
+        ]
+      },
+      "additionalAspects": "Good progress in bias reduction with ongoing fairness improvements. Comprehensive bias testing across multiple demographic dimensions."
+    },
+    "information-integrity": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/research/truthfulness/",
+            "description": "Factual accuracy and information integrity evaluation",
+            "sourceType": "external",
+            "benchmarkName": "TruthfulQA, FEVER, HaluEval, FActScore",
+            "metrics": "Truthfulness rate, hallucination frequency, factual accuracy",
+            "score": "81% truthfulness on TruthfulQA, 11% hallucination rate"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/research/truthfulness/",
+            "description": "Information integrity evaluation methodology",
+            "documentType": "Research Paper",
+            "scope": "Factual accuracy, misinformation resistance, source reliability, citation accuracy",
+            "successFailureDefinitions": "Success: >75% factual accuracy with controlled hallucination rates",
+            "hypotheses": "Retrieval-augmented training improves factual accuracy and reduces hallucination"
+          }
+        ]
+      },
+      "additionalAspects": "Strong commitment to factual accuracy with ongoing improvements in hallucination reduction. Integration with Google's knowledge systems enhances information reliability."
+    },
+    "privacy-data": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "yes",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/responsibility/privacy/",
+            "description": "Privacy protection and data security evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Privacy leakage tests, membership inference attacks, PII extraction tests",
+            "metrics": "Privacy leakage rate, MIA success rate, PII detection accuracy",
+            "score": "2.1% MIA success rate, <0.03% PII leakage"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/responsibility/privacy/",
+            "description": "Privacy and data protection evaluation framework",
+            "documentType": "Privacy Report",
+            "scope": "Training data privacy, inference privacy, PII protection, user data security",
+            "successFailureDefinitions": "Success: <3% MIA success, <0.05% PII leakage",
+            "hypotheses": "Privacy-preserving training methods and differential privacy protect user data"
+          }
+        ]
+      },
+      "additionalAspects": "Strong privacy protections with comprehensive data governance frameworks. Low rates of privacy leakage and effective PII protection mechanisms."
+    },
+    "security-robustness": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/responsibility/security/",
+            "description": "Security and robustness evaluation against various attacks",
+            "sourceType": "external",
+            "benchmarkName": "Adversarial attacks, prompt injection, jailbreaking attempts",
+            "metrics": "Attack success rate, robustness score, security compliance",
+            "score": "9.1% jailbreak success rate, 91% robustness score"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/responsibility/security/",
+            "description": "Security and robustness evaluation methodology",
+            "documentType": "Security Report",
+            "scope": "Adversarial robustness, prompt injection resistance, system security",
+            "successFailureDefinitions": "Success: <15% attack success rate with maintained functionality",
+            "hypotheses": "Multi-layered security training improves robustness against attacks"
+          }
+        ]
+      },
+      "additionalAspects": "Good security robustness with comprehensive security measures. Ongoing improvements in adversarial attack resistance and system security."
+    },
+    "dangerous-capabilities": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "no",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/responsibility/dangerous-capabilities/",
+            "description": "Dangerous capabilities evaluation including CBRN and dual-use assessment",
+            "sourceType": "internal",
+            "benchmarkName": "CBRN evaluation, dual-use technology assessment",
+            "metrics": "Dangerous information generation rate, misuse potential score",
+            "score": "1.2% dangerous information generation, moderate misuse potential"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/responsibility/dangerous-capabilities/",
+            "description": "Dangerous capabilities risk assessment",
+            "documentType": "Safety Report",
+            "scope": "CBRN information, dual-use technologies, weapons information, misuse prevention",
+            "successFailureDefinitions": "Success: <2% dangerous information generation with effective safeguards",
+            "hypotheses": "Safety training and content filtering prevent dangerous capability misuse"
+          }
+        ]
+      },
+      "additionalAspects": "Moderate performance in dangerous capability prevention with room for improvement. Ongoing work to strengthen safeguards against misuse."
+    },
+    "human-ai-interaction": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "yes",
+        "A4": "yes",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "yes"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/research/human-ai-interaction/",
+            "description": "Human-AI interaction safety and effectiveness evaluation",
+            "sourceType": "external",
+            "benchmarkName": "Trust calibration, helpfulness assessment, user experience metrics",
+            "metrics": "Trust calibration score, helpfulness rating, user satisfaction",
+            "score": "0.76 trust calibration, 8.4/10 helpfulness, 85% user satisfaction"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/research/human-ai-interaction/",
+            "description": "Human-AI interaction evaluation framework",
+            "documentType": "Research Paper",
+            "scope": "Trust calibration, transparency, helpfulness, user experience optimization",
+            "successFailureDefinitions": "Success: Well-calibrated trust with positive user experience",
+            "hypotheses": "User-centered design principles improve human-AI interaction quality"
+          }
+        ]
+      },
+      "additionalAspects": "Good human-AI interaction design with focus on user experience. Strong helpfulness ratings with reasonable trust calibration."
+    },
+    "governance-accountability": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "yes",
+        "A3": "yes",
+        "A4": "no",
+        "A5": "no",
+        "A6": "yes"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "yes",
+        "B5": "yes",
+        "B6": "yes",
+        "B8": "no"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://ai.google/responsibility/governance/",
+            "description": "Governance and accountability framework evaluation",
+            "sourceType": "internal",
+            "benchmarkName": "Transparency metrics, accountability measures, governance compliance",
+            "metrics": "Documentation completeness, oversight effectiveness, compliance score",
+            "score": "84% documentation completeness, moderate governance compliance"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/responsibility/governance/",
+            "description": "Governance and accountability evaluation framework",
+            "documentType": "Governance Report",
+            "scope": "Transparency, accountability, oversight mechanisms, ethical guidelines",
+            "successFailureDefinitions": "Success: Comprehensive governance with clear accountability structures",
+            "hypotheses": "Strong governance frameworks reduce deployment risks and improve outcomes"
+          }
+        ]
+      },
+      "additionalAspects": "Developing governance framework with room for improvement in transparency and accountability mechanisms. Ongoing work to strengthen oversight processes."
+    },
+    "environmental-impact": {
+      "benchmarkAnswers": {
+        "A1": "yes",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {
+        "A1": [
+          {
+            "url": "https://sustainability.google/",
+            "description": "Environmental impact assessment and carbon footprint analysis",
+            "sourceType": "internal",
+            "benchmarkName": "Carbon footprint calculation, energy efficiency metrics",
+            "metrics": "CO2 emissions per token, energy consumption, sustainability score",
+            "score": "0.0018 kg CO2 per 1000 tokens"
+          }
+        ]
+      },
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://sustainability.google/",
+            "description": "Environmental impact evaluation methodology",
+            "documentType": "Sustainability Report",
+            "scope": "Training emissions, inference energy, hardware lifecycle, renewable energy use",
+            "successFailureDefinitions": "Success: Carbon-neutral operations with efficiency improvements",
+            "hypotheses": "Efficient architectures and renewable energy reduce environmental impact"
+          }
+        ]
+      },
+      "additionalAspects": "Significant environmental impact with ongoing sustainability efforts. Google's commitment to carbon neutrality helps offset some environmental costs."
+    },
+    "economic-displacement": {
+      "benchmarkAnswers": {
+        "A1": "no",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {},
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/research/economic-impact/",
+            "description": "Economic displacement impact assessment",
+            "documentType": "Economic Impact Report",
+            "scope": "Job displacement analysis, economic benefits, societal impact",
+            "successFailureDefinitions": "Success: Net positive economic impact with transition support",
+            "hypotheses": "AI augmentation creates economic value while requiring workforce adaptation"
+          }
+        ]
+      },
+      "additionalAspects": "Limited evaluation of economic displacement impacts. Need for more comprehensive analysis of job market effects and transition support requirements."
+    },
+    "value-chain": {
+      "benchmarkAnswers": {
+        "A1": "no",
+        "A2": "no",
+        "A3": "no",
+        "A4": "no",
+        "A5": "no",
+        "A6": "no"
+      },
+      "processAnswers": {
+        "B1": "yes",
+        "B2": "no",
+        "B5": "no",
+        "B6": "no",
+        "B8": "no"
+      },
+      "benchmarkSources": {},
+      "processSources": {
+        "B1": [
+          {
+            "url": "https://ai.google/responsibility/supply-chain/",
+            "description": "Value chain and supply chain risk assessment",
+            "documentType": "Supply Chain Report",
+            "scope": "Data sourcing ethics, third-party dependencies, supply chain security",
+            "successFailureDefinitions": "Success: Ethical and secure value chain with comprehensive risk management",
+            "hypotheses": "Responsible supply chain management reduces systemic risks"
+          }
+        ]
+      },
+      "additionalAspects": "Limited transparency in value chain evaluation. Ongoing work to improve supply chain risk assessment and ethical sourcing practices."
+    }
+  }
+}

@@ -98,7 +98,7 @@ export const CATEGORY_DESCRIPTIONS = {
   "environmental-impact": {
     name: "Environmental & Resource Impact",
     description:
-      "Assesses environmental costs of AI development and deployment, including energy consumption, carbon footprint, and resource utilization.",
+      "Evaluates environmental costs of AI development and deployment, including energy consumption, carbon footprint, and resource utilization.",
     type: "risk" as const,
   },
   "economic-displacement": {
@@ -145,20 +145,21 @@ export const BENCHMARK_QUESTIONS = [
     text: "Has the system been run on recognized, category-specific benchmarks?",
     tooltip:
       "Expect: Benchmark/dataset names & versions, task variants, metric definitions, who ran them (internal/external).",
-    customFields: ["benchmarkName", "version", "taskVariants", "metrics"],
+    customFields: [],
   },
   {
     id: "A2",
-    text: "Does the system meet pre-set quantitative thresholds for acceptable performance?",
+    text: "Does the system meet pre-set quantitative thresholds for acceptable performance under applicable regulations?",
     tooltip:
-      "Expect: Numeric scores vs. target thresholds, source of thresholds (standard, paper, policy), pass/fail determination.",
-    customFields: ["thresholds", "thresholdSource", "passFail"],
+      "Expect: Numeric scores vs. regulatory/compliance thresholds (e.g., hiring fairness, medical accuracy), source of regulatory requirements, compliance determination.",
+    customFields: ["thresholds", "regulatorySource", "complianceStatus"],
   },
   {
     id: "A3",
-    text: "How does performance compare to baselines/SOTA/previous versions under matched conditions?",
-    tooltip: "Expect: Side-by-side numbers, matched configs, significance tests or confidence intervals for deltas.",
-    customFields: ["comparativeScores", "baselineType", "significance"],
+    text: "How does performance compare to baselines, SOTA, previous versions, and other comparable systems?",
+    tooltip:
+      "Expect: Side-by-side comparisons with SOTA models, previous versions, and similar systems under matched conditions, significance tests or confidence intervals for deltas.",
+    customFields: ["comparativeScores", "comparisonTargets", "significance"],
   },
   {
     id: "A4",
@@ -196,18 +197,6 @@ export const PROCESS_QUESTIONS = [
     customFields: ["replicationPackage", "accessLevel", "proxies"],
   },
   {
-    id: "B3",
-    text: "How do results connect to concrete risks and failure scenarios?",
-    tooltip: "Expect: Risk register entries tied to metrics, severity/likelihood notes, example failure cases.",
-    customFields: ["riskRegister", "severityLikelihood", "failureCases"],
-  },
-  {
-    id: "B4",
-    text: "Are mitigations evaluated and trended over time?",
-    tooltip: "Expect: Before/after metrics, target thresholds, regression checks, gate criteria for release.",
-    customFields: ["beforeAfterMetrics", "targetThresholds", "gateCriteria"],
-  },
-  {
     id: "B5",
     text: "Have domain experts/affected users reviewed interpretations of results?",
     tooltip: "Expect: Who reviewed, what feedback changed, unresolved disagreements and rationale.",
@@ -221,20 +210,20 @@ export const PROCESS_QUESTIONS = [
     customFields: ["uncertaintyDisclosure", "axesConsistency", "sampleSizes", "selectionCriteria"],
   },
   {
-    id: "B7",
-    text: "Are evaluation practices aligned to relevant standards or policies?",
-    tooltip:
-      "Expect: Mapping of methods/results to applicable org/industry/regulatory standards; gaps and remediation plan.",
-    customFields: ["standardsMapping", "gaps", "remediationPlan"],
-  },
-  {
     id: "B8",
-    text: "Is there a process to re-run/adapt evals as models, data, or risks change?",
+    text: "Is there a process to re-run/adapt evals as models, data, or risks change, including mitigation and retest procedures?",
     tooltip:
-      "Expect: Triggers (model updates, drift, incidents), versioned eval specs, scheduled re-assessment cadence, audit trail of changes.",
-    customFields: ["triggers", "versionedSpecs", "auditTrail"],
+      "Expect: Triggers (model updates, drift, incidents), versioned eval specs, scheduled re-assessment cadence, audit trail of changes, mitigation protocols when issues are found, and systematic retest procedures after fixes.",
+    customFields: ["triggers", "versionedSpecs", "auditTrail", "mitigationProtocols", "retestProcedures"],
   },
 ]
+
+export const ADDITIONAL_ASPECTS_SECTION = {
+  id: "C",
+  title: "Additional Evaluation Aspects",
+  description:
+    "Document any other evaluation aspects for this category that may not have been captured by the structured questions above. This section will not be scored but will be visible in the final documentation.",
+}
 
 export const CATEGORY_DETAILED_GUIDANCE = {
   "language-communication": `Key Benchmarks to Look For:
