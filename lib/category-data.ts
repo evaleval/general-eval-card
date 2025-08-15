@@ -142,72 +142,97 @@ export const SOURCE_TYPES = {
 export const BENCHMARK_QUESTIONS = [
   {
     id: "A1",
-    text: "Have standardized benchmarks or performance tests been conducted for this category?",
+    text: "Has the system been run on recognized, category-specific benchmarks?",
     tooltip:
-      "Look for established benchmarks like MMLU, HellaSwag, or domain-specific tests relevant to this category.",
+      "Expect: Benchmark/dataset names & versions, task variants, metric definitions, who ran them (internal/external).",
+    customFields: ["benchmarkName", "version", "taskVariants", "metrics"],
   },
   {
     id: "A2",
-    text: "Do test results demonstrate that the system meets or exceeds established performance thresholds?",
-    tooltip: "Check if performance meets industry standards or internal requirements for this capability area.",
+    text: "Does the system meet pre-set quantitative thresholds for acceptable performance?",
+    tooltip:
+      "Expect: Numeric scores vs. target thresholds, source of thresholds (standard, paper, policy), pass/fail determination.",
+    customFields: ["thresholds", "thresholdSource", "passFail"],
   },
   {
     id: "A3",
-    text: "Has system performance been compared against relevant baselines or competitor systems?",
-    tooltip: "Comparative analysis helps establish relative performance and competitive positioning.",
+    text: "How does performance compare to baselines/SOTA/previous versions under matched conditions?",
+    tooltip: "Expect: Side-by-side numbers, matched configs, significance tests or confidence intervals for deltas.",
+    customFields: ["comparativeScores", "baselineType", "significance"],
   },
   {
     id: "A4",
-    text: "Have adversarial testing, stress testing, or edge case evaluations been performed?",
-    tooltip: "Edge case testing reveals system limitations and potential failure modes under unusual conditions.",
+    text: "How does the system perform under adversarial inputs, extreme loads, distribution shift?",
+    tooltip: "Expect: Test types (attack/shift/load), rates of failure/degradation, robustness metrics.",
+    customFields: ["testTypes", "failureRates", "robustnessMetrics"],
+  },
+  {
+    id: "A5",
+    text: "Is performance measured in the wild with automated monitors?",
+    tooltip: "Expect: Live metrics tracked (e.g., error rates, drift, latency), sampling cadence, alert thresholds.",
+    customFields: ["liveMetrics", "samplingCadence", "alertThresholds"],
   },
   {
     id: "A6",
-    text: "Are automated monitoring systems in place to continuously assess performance during deployment?",
-    tooltip: "Ongoing monitoring ensures performance maintains expected levels in production environments.",
+    text: "Have you quantified train–test overlap or leakage risks that could inflate results?",
+    tooltip:
+      "Expect: Procedure (e.g., n-gram/fuzzy overlap, URL hashing), contamination rate estimates, mitigations taken.",
+    customFields: ["procedure", "contaminationRate", "mitigations"],
   },
 ]
 
 export const PROCESS_QUESTIONS = [
   {
     id: "B1",
-    text: "Has the applicability and scope of this category been clearly defined and documented for your system?",
-    tooltip: "Clear scope definition ensures consistent evaluation and understanding of category boundaries.",
+    text: "What capability/risk claims is this category evaluating and why it's applicable?",
+    tooltip: "Expect: Clear scope, success/failure definitions, hypotheses the evaluation is testing.",
+    customFields: ["scope", "successFailureDefinitions", "hypotheses"],
   },
   {
     id: "B2",
-    text: "Are evaluation methodologies, success criteria, and known limitations documented and accessible?",
-    tooltip: "Comprehensive documentation enables replication and validation of evaluation approaches.",
+    text: "Can others reproduce the results?",
+    tooltip:
+      "Expect: Public or access-controlled release of code/configs, prompts, seeds, decoding settings, dataset IDs/versions, hardware notes; if not shareable, documented proxies.",
+    customFields: ["replicationPackage", "accessLevel", "proxies"],
   },
   {
     id: "B3",
-    text: "Have potential risks, failure modes, and their impacts been systematically identified and documented?",
-    tooltip: "Risk assessment identifies potential negative outcomes and their severity for this category.",
+    text: "How do results connect to concrete risks and failure scenarios?",
+    tooltip: "Expect: Risk register entries tied to metrics, severity/likelihood notes, example failure cases.",
+    customFields: ["riskRegister", "severityLikelihood", "failureCases"],
   },
   {
     id: "B4",
-    text: "Are risk mitigation strategies implemented and documented with clear ownership?",
-    tooltip: "Mitigation strategies demonstrate proactive risk management and preparedness.",
+    text: "Are mitigations evaluated and trended over time?",
+    tooltip: "Expect: Before/after metrics, target thresholds, regression checks, gate criteria for release.",
+    customFields: ["beforeAfterMetrics", "targetThresholds", "gateCriteria"],
   },
   {
     id: "B5",
-    text: "Have relevant stakeholders and domain experts been engaged in defining evaluation approaches?",
-    tooltip: "Stakeholder involvement ensures diverse perspectives and identifies overlooked considerations.",
+    text: "Have domain experts/affected users reviewed interpretations of results?",
+    tooltip: "Expect: Who reviewed, what feedback changed, unresolved disagreements and rationale.",
+    customFields: ["reviewers", "feedbackChanges", "disagreements"],
   },
   {
     id: "B6",
-    text: "Have applicable legal, regulatory, and industry standards been identified and addressed?",
-    tooltip: "Compliance with relevant standards and regulations is essential for deployment readiness.",
+    text: "Do figures communicate results without distortion and with uncertainty/context?",
+    tooltip:
+      "Expect: Uncertainty shown (CI/SE, multi-seed variance), full/consistent axes, sample sizes, like-for-like comparisons, raw tables available, disclosure of selection criteria.",
+    customFields: ["uncertaintyDisclosure", "axesConsistency", "sampleSizes", "selectionCriteria"],
   },
   {
     id: "B7",
-    text: "Are incident response procedures documented and tested for this category?",
-    tooltip: "Incident response procedures ensure rapid and effective handling of problems when they occur.",
+    text: "Are evaluation practices aligned to relevant standards or policies?",
+    tooltip:
+      "Expect: Mapping of methods/results to applicable org/industry/regulatory standards; gaps and remediation plan.",
+    customFields: ["standardsMapping", "gaps", "remediationPlan"],
   },
   {
     id: "B8",
-    text: "Is there a governance process for updating evaluation approaches based on new findings?",
-    tooltip: "Regular updates ensure evaluation methods remain current with evolving standards and knowledge.",
+    text: "Is there a process to re-run/adapt evals as models, data, or risks change?",
+    tooltip:
+      "Expect: Triggers (model updates, drift, incidents), versioned eval specs, scheduled re-assessment cadence, audit trail of changes.",
+    customFields: ["triggers", "versionedSpecs", "auditTrail"],
   },
 ]
 
