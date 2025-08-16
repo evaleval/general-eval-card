@@ -40,9 +40,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -191,6 +192,20 @@
               "feedbackChanges": "Added bias metrics, revised safety thresholds",
               "disagreements": "Threshold levels for harmful content detection"
             }
+          },
+          {
+            "id": "11",
+            "url": "https://openai.com/safety/monitoring",
+            "description": "Continuous monitoring and re-evaluation procedures",
+            "sourceType": "internal",
+            "documentType": "Standard Operating Procedure",
+            "customFields": {
+              "triggers": "Model updates, performance drift >5%, safety incidents",
+              "versionedSpecs": "Evaluation specifications v3.2 with change tracking",
+              "auditTrail": "All changes logged with timestamps and rationale",
+              "mitigationProtocols": "Automated rollback procedures, manual safety review",
+              "retestProcedures": "Full evaluation suite after fixes, regression testing"
+            }
           }
         ],
         "B6": [
@@ -205,22 +220,6 @@
               "axesConsistency": "Consistent 0-100 scale, no truncated axes",
               "sampleSizes": "n=10,000 test samples, 5 random seeds",
               "selectionCriteria": "All results reported, no cherry-picking"
-            }
-          }
-        ],
-        "B8": [
-          {
-            "id": "11",
-            "url": "https://openai.com/safety/monitoring",
-            "description": "Continuous monitoring and re-evaluation procedures",
-            "sourceType": "internal",
-            "documentType": "Standard Operating Procedure",
-            "customFields": {
-              "triggers": "Model updates, performance drift >5%, safety incidents",
-              "versionedSpecs": "Evaluation specifications v3.2 with change tracking",
-              "auditTrail": "All changes logged with timestamps and rationale",
-              "mitigationProtocols": "Automated rollback procedures, manual safety review",
-              "retestProcedures": "Full evaluation suite after fixes, regression testing"
             }
           }
         ]
@@ -256,8 +255,14 @@
       "environmental-impact",
       "value-chain"
     ],
-    "weakCategories": ["harmful-content", "bias-fairness", "dangerous-capabilities"],
-    "insufficientCategories": ["economic-displacement"],
+    "weakCategories": [
+      "harmful-content",
+      "bias-fairness",
+      "dangerous-capabilities"
+    ],
+    "insufficientCategories": [
+      "economic-displacement"
+    ],
     "completenessScore": 89
   }
 }

@@ -197,20 +197,27 @@ export const PROCESS_QUESTIONS = [
     customFields: ["replicationPackage", "accessLevel", "proxies"],
   },
   {
-    id: "B5",
+    id: "B3",
     text: "Have domain experts/affected users reviewed interpretations of results?",
     tooltip: "Expect: Who reviewed, what feedback changed, unresolved disagreements and rationale.",
     customFields: ["reviewers", "feedbackChanges", "disagreements"],
   },
   {
-    id: "B6",
+    id: "B4",
     text: "Do figures communicate results without distortion and with uncertainty/context?",
     tooltip:
       "Expect: Uncertainty shown (CI/SE, multi-seed variance), full/consistent axes, sample sizes, like-for-like comparisons, raw tables available, disclosure of selection criteria.",
     customFields: ["uncertaintyDisclosure", "axesConsistency", "sampleSizes", "selectionCriteria"],
   },
   {
-    id: "B8",
+    id: "B5",
+    text: "Standards & Compliance Alignment - Are evaluation practices aligned with relevant organizational, industry, or regulatory standards?",
+    tooltip:
+      "Expect: References to applicable standards/regulations, mapping of evaluation practices to those standards, any gaps or exemptions noted, and plan to address misalignment.",
+    customFields: ["standardsReferenced", "alignmentSummary"],
+  },
+  {
+    id: "B6",
     text: "Is there a process to re-run/adapt evals as models, data, or risks change, including mitigation and retest procedures?",
     tooltip:
       "Expect: Triggers (model updates, drift, incidents), versioned eval specs, scheduled re-assessment cadence, audit trail of changes, mitigation protocols when issues are found, and systematic retest procedures after fixes.",

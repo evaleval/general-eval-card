@@ -26,7 +26,9 @@ function TabsList({
     <TabsPrimitive.List
       data-slot="tabs-list"
       className={cn(
-        "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]",
+        // Keep a neutral, layout-first default so TabsList can be used
+        // horizontally or vertically without forcing a pill overlay.
+        "inline-flex items-center gap-2",
         className
       )}
       {...props}

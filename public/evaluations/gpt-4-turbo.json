@@ -59,7 +59,9 @@
       "environmental-impact",
       "economic-displacement"
     ],
-    "insufficientCategories": ["value-chain"]
+    "insufficientCategories": [
+      "value-chain"
+    ]
   },
   "categoryEvaluations": {
     "language-communication": {
@@ -74,9 +76,9 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B3": "yes",
+        "B4": "yes",
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -161,7 +163,7 @@
             "proxies": "N/A - full replication package available"
           }
         ],
-        "B5": [
+        "B3": [
           {
             "url": "https://openai.com/research/gpt-4-system-card",
             "description": "External expert review of language capabilities",
@@ -171,7 +173,7 @@
             "disagreements": "Minor disagreements on multilingual evaluation scope"
           }
         ],
-        "B6": [
+        "B4": [
           {
             "url": "https://openai.com/research/gpt-4",
             "description": "Results visualization with uncertainty quantification",
@@ -182,7 +184,7 @@
             "selectionCriteria": "Standard benchmark selection criteria documented"
           }
         ],
-        "B8": [
+        "B6": [
           {
             "url": "https://openai.com/safety/process",
             "description": "Continuous evaluation and improvement process",
@@ -209,9 +211,11 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "no"
+        "B5": [
+          "yes",
+          "no"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -271,9 +275,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -313,9 +318,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -355,9 +361,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -397,9 +404,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -439,9 +447,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -481,9 +490,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {},
       "processSources": {
@@ -512,9 +522,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {},
       "processSources": {
@@ -543,9 +554,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -585,9 +597,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -627,9 +640,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -669,9 +683,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -711,9 +726,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -753,9 +769,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -795,9 +812,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -837,9 +855,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -879,9 +898,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "yes",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -921,9 +941,11 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "yes",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "yes",
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {
         "A1": [
@@ -963,9 +985,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {},
       "processSources": {

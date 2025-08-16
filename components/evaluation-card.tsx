@@ -56,11 +56,29 @@ const getCompletenessColor = (score: number) => {
 
 export function EvaluationCard({ evaluation, onView, onDelete }: EvaluationCardProps) {
   const router = useRouter()
+  const getUniqueCount = (lists: string[][]) => {
+    const set = new Set<string>()
+    lists.forEach((list) => (list || []).forEach((item) => set.add(item)))
+    return set.size
+  }
 
+  const capTotalComputed = getUniqueCount([
+    evaluation.capabilityEval.strongCategories,
+    evaluation.capabilityEval.adequateCategories,
+    evaluation.capabilityEval.weakCategories,
+    evaluation.capabilityEval.insufficientCategories,
+  ])
+
+  const riskTotalComputed = getUniqueCount([
+    evaluation.riskEval.strongCategories,
+    evaluation.riskEval.adequateCategories,
+    evaluation.riskEval.weakCategories,
+    evaluation.riskEval.insufficientCategories,
+  ])
   const calculateCompletenessScore = () => {
-    const weights = { strong: 4, adequate: 3, weak: 2, insufficient: 1 }
-    const capTotal = evaluation.capabilityEval.totalApplicable
-    const riskTotal = evaluation.riskEval.totalApplicable
+  const weights = { strong: 4, adequate: 3, weak: 2, insufficient: 1 }
+  const capTotal = capTotalComputed
+  const riskTotal = riskTotalComputed
 
     if (capTotal === 0 && riskTotal === 0) {
       return "0.0"
@@ -88,11 +106,11 @@ export function EvaluationCard({ evaluation, onView, onDelete }: EvaluationCardP
         100
     }
 
-    const totalApplicable = capTotal + riskTotal
+  const totalApplicable = capTotal + riskTotal
     const weightedScore = (capScore * capTotal + riskScore * riskTotal) / totalApplicable
 
     // Ensure we return a valid number
-    return isNaN(weightedScore) ? "0.0" : weightedScore.toFixed(1)
+  return isNaN(weightedScore) ? "0.0" : weightedScore.toFixed(1)
   }
 
   const handleViewDetails = () => {

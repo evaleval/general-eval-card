@@ -3,7 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import type { SystemInfo, CategoryScore } from "@/app/page"
+import type { SystemInfo, CategoryScore } from "@/components/ai-evaluation-dashboard"
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
 import { Download, AlertTriangle, CheckCircle, AlertCircle, XCircle } from "lucide-react"
 
@@ -214,8 +214,9 @@ export function ResultsDashboard({
 
       {/* Status Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        {Object.entries(statusCounts).map(([status, count]) => {
-          const Icon = STATUS_ICONS[status as keyof typeof STATUS_ICONS]
+  {Object.entries(statusCounts).map(([status, count]) => {
+          const key = (status as string) as keyof typeof STATUS_ICONS
+          const Icon = STATUS_ICONS[key] ?? AlertTriangle
           return (
             <Card key={status}>
               <CardContent className="pt-6">
@@ -224,7 +225,7 @@ export function ResultsDashboard({
                     <div className="text-2xl font-bold">{count}</div>
                     <div className="text-sm text-muted-foreground capitalize">{status}</div>
                   </div>
-                  <Icon className="h-8 w-8" style={{ color: STATUS_COLORS[status as keyof typeof STATUS_COLORS] }} />
+                  <Icon className="h-8 w-8" style={{ color: STATUS_COLORS[key] ?? STATUS_COLORS.insufficient }} />
                 </div>
               </CardContent>
             </Card>
@@ -294,12 +295,14 @@ export function ResultsDashboard({
               const score = safeCategoryScores[category.id]
               if (!score) return null
 
-              const Icon = STATUS_ICONS[score.status]
+              const key = (score.status as string) as keyof typeof STATUS_ICONS
+              const Icon = (STATUS_ICONS as any)[key] ?? AlertTriangle
+              const color = (STATUS_COLORS as any)[key] ?? STATUS_COLORS.insufficient
 
               return (
                 <div key={category.id} className="flex items-center justify-between p-4 border rounded-lg">
                   <div className="flex items-center gap-3">
-                    <Icon className="h-5 w-5" style={{ color: STATUS_COLORS[score.status] }} />
+                    <Icon className="h-5 w-5" style={{ color }} />
                     <div>
                       <div className="font-medium">{category.name}</div>
                       <div className="flex items-center gap-2 mt-1">

@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
-import type { CategoryScore } from "@/app/page"
+import type { CategoryScore } from "@/components/ai-evaluation-dashboard"
 import { HelpCircle, CheckCircle, Plus, Trash2 } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { BENCHMARK_QUESTIONS, PROCESS_QUESTIONS, SOURCE_TYPES, ADDITIONAL_ASPECTS_SECTION } from "@/lib/category-data"
@@ -252,7 +252,7 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
   const updateSource = (
     questionId: string,
     sourceId: string,
-    field: keyof (Source | DocumentationSource),
+    field: string,
     value: string,
     section: "benchmark" | "process",
   ) => {
@@ -314,34 +314,40 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
   }
 
   const currentScore = useMemo(() => {
-    console.log("[v0] Calculating score with answers:", { benchmarkAnswers, processAnswers })
+    // Calculate counts
+    const totalBenchmarkQuestions = BENCHMARK_QUESTIONS.length
+    const totalProcessQuestions = PROCESS_QUESTIONS.length
+    const totalQuestions = totalBenchmarkQuestions + totalProcessQuestions
 
     const benchmarkYesCount = Object.values(benchmarkAnswers).filter((answer) => answer === "yes").length
     const processYesCount = Object.values(processAnswers).filter((answer) => answer === "yes").length
 
-    const benchmarkApplicable = Object.values(benchmarkAnswers).filter((answer) => answer !== "na").length
-    const processApplicable = Object.values(processAnswers).filter((answer) => answer !== "na").length
+    const benchmarkNaCount = Object.values(benchmarkAnswers).filter((answer) => answer === "na").length
+    const processNaCount = Object.values(processAnswers).filter((answer) => answer === "na").length
 
-    const totalAnswered = benchmarkApplicable + processApplicable
+    const naCount = benchmarkNaCount + processNaCount
     const totalYes = benchmarkYesCount + processYesCount
 
-    console.log("[v0] Score calculation:", { benchmarkYesCount, processYesCount, totalAnswered, totalYes })
+    // Denominator = total questions in the category minus NA answers
+    const totalApplicable = Math.max(0, totalQuestions - naCount)
 
-    const benchmarkScore = isNaN(benchmarkYesCount) ? 0 : benchmarkYesCount
-    const processScore = isNaN(processYesCount) ? 0 : processYesCount
-    const totalScore = isNaN(totalYes) ? 0 : totalYes
+    const scorePercentage = totalApplicable > 0 ? totalYes / totalApplicable : 0
 
     let status: CategoryScore["status"]
-    const maxPossibleScore = Math.max(1, totalAnswered)
-    const scorePercentage = totalScore / maxPossibleScore
-
     if (scorePercentage >= 0.8) status = "strong"
     else if (scorePercentage >= 0.6) status = "adequate"
     else if (scorePercentage >= 0.4) status = "weak"
     else status = "insufficient"
 
-    const result = { benchmarkScore, processScore, totalScore, status }
-    console.log("[v0] Final calculated score:", result)
+    const result = {
+      benchmarkScore: benchmarkYesCount,
+      processScore: processYesCount,
+      totalScore: totalYes,
+      status,
+      totalQuestions,
+      totalApplicable,
+      naCount,
+    }
 
     return result
   }, [benchmarkAnswers, processAnswers])
@@ -397,7 +403,8 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
     onScoreUpdate(currentScore)
   }
 
-  const isComplete = Object.keys(benchmarkAnswers).length === 6 && Object.keys(processAnswers).length === 5
+  const isComplete =
+    Object.keys(benchmarkAnswers).length + Object.keys(processAnswers).length === BENCHMARK_QUESTIONS.length + PROCESS_QUESTIONS.length
 
   return (
     <TooltipProvider>
@@ -416,7 +423,7 @@ export function CategoryEvaluation({ category, score, onScoreUpdate }: CategoryE
                 <div className="text-right">
                   <div className="flex items-center gap-2 mb-1">
                     <CheckCircle className="h-5 w-5 text-green-600" />
-                    <span className="font-medium">Score: {currentScore.totalScore}/11</span>
+                    <span className="font-medium">Score: {currentScore.totalScore}/{currentScore.totalApplicable || currentScore.totalQuestions}</span>
                   </div>
                   <Badge
                     variant={

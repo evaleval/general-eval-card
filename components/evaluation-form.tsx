@@ -6,13 +6,16 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { CategoryEvaluation } from "@/components/category-evaluation"
-import type { CategoryScore } from "@/app/page"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import type { CategoryScore } from "@/components/ai-evaluation-dashboard"
 import { CheckCircle, Circle, ArrowRight, ArrowLeft } from "lucide-react"
 
 interface Category {
   id: string
   name: string
   type: "capability" | "risk"
+  description: string
+  detailedGuidance: string
 }
 
 interface EvaluationFormProps {
@@ -85,43 +88,33 @@ export function EvaluationForm({
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Category Navigation Sidebar */}
+        {/* Category Navigation Sidebar as Tabs */}
         <Card className="lg:col-span-1">
           <CardHeader>
             <CardTitle className="text-lg">Categories</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2">
-            {selectedCategoryObjects.map((category, index) => {
-              const isCompleted = categoryScores[category.id]
-              const isCurrent = index === currentCategoryIndex
-
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategorySelect(category.id)}
-                  className={`w-full text-left p-3 rounded-lg border transition-colors ${
-                    isCurrent ? "border-accent bg-accent/10" : "border-border hover:bg-muted/50"
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    {isCompleted ? (
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                    ) : (
-                      <Circle className="h-4 w-4 text-muted-foreground" />
-                    )}
-                    <Badge variant={category.type === "capability" ? "secondary" : "destructive"} className="text-xs">
-                      {category.type}
-                    </Badge>
-                  </div>
-                  <p className="text-sm font-medium">{category.name}</p>
-                  {isCompleted && (
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Score: {categoryScores[category.id].totalScore}/15
-                    </p>
-                  )}
-                </button>
-              )
-            })}
+          <CardContent>
+            <Tabs defaultValue={selectedCategoryObjects[0]?.id || ""} orientation="vertical" value={selectedCategoryObjects[currentCategoryIndex]?.id || ""} onValueChange={(val) => handleCategorySelect(val)}>
+              <TabsList className="flex-col w-full max-h-[60vh] overflow-y-auto">
+                {selectedCategoryObjects.map((category, index) => {
+                  const isCompleted = categoryScores[category.id]
+                  return (
+                    <TabsTrigger key={category.id} value={category.id} className="w-full text-left p-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          {isCompleted ? <CheckCircle className="h-4 w-4 text-green-600" /> : <Circle className="h-4 w-4 text-muted-foreground" />}
+                          <div className="flex flex-col text-left">
+                            <span className="text-sm font-medium">{category.name}</span>
+                            <span className="text-xs text-muted-foreground">{category.type}</span>
+                          </div>
+                        </div>
+                        {isCompleted && <span className="text-xs text-muted-foreground">{categoryScores[category.id].totalScore}/{categoryScores[category.id].totalApplicable || categoryScores[category.id].totalQuestions || 0}</span>}
+                      </div>
+                    </TabsTrigger>
+                  )
+                })}
+              </TabsList>
+            </Tabs>
           </CardContent>
         </Card>
 
@@ -129,6 +122,7 @@ export function EvaluationForm({
         <div className="lg:col-span-3">
           {currentCategory && (
             <CategoryEvaluation
+              key={currentCategory.id}
               category={currentCategory}
               score={categoryScores[currentCategory.id]}
               onScoreUpdate={(score) => onScoreUpdate(currentCategory.id, score)}

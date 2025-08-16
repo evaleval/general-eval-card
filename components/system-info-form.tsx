@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import type { SystemInfo } from "@/app/page"
+import type { SystemInfo } from "@/components/ai-evaluation-dashboard"
 
 interface SystemInfoFormProps {
   onSubmit: (data: SystemInfo) => void
@@ -41,7 +41,8 @@ export function SystemInfoForm({ onSubmit, initialData }: SystemInfoFormProps) {
     url: initialData?.url || "",
     provider: initialData?.provider || "",
     systemTypes: initialData?.systemTypes || [],
-    deploymentContexts: initialData?.deploymentContexts || [],
+  deploymentContexts: initialData?.deploymentContexts || [],
+  modality: initialData?.modality || "text",
   })
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -50,14 +51,14 @@ export function SystemInfoForm({ onSubmit, initialData }: SystemInfoFormProps) {
   }
 
   const handleSystemTypeChange = (type: string, checked: boolean) => {
-    setFormData((prev) => ({
+    setFormData((prev: SystemInfo) => ({
       ...prev,
       systemTypes: checked ? [...prev.systemTypes, type] : prev.systemTypes.filter((t) => t !== type),
     }))
   }
 
   const handleDeploymentContextChange = (context: string, checked: boolean) => {
-    setFormData((prev) => ({
+    setFormData((prev: SystemInfo) => ({
       ...prev,
       deploymentContexts: checked
         ? [...prev.deploymentContexts, context]

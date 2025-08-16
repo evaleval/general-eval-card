@@ -8,6 +8,7 @@ import { ArrowLeft } from "lucide-react"
 import { SystemInfoForm } from "./system-info-form"
 import { CategorySelection } from "./category-selection"
 import { CategoryEvaluation } from "./category-evaluation"
+import { EvaluationForm } from "./evaluation-form"
 import { ResultsDashboard } from "./results-dashboard"
 import { CATEGORIES } from "@/lib/category-data"
 
@@ -25,6 +26,10 @@ export type CategoryScore = {
   processScore: number
   totalScore: number
   status: "strong" | "adequate" | "weak" | "insufficient" | "not-evaluated"
+  // optional metadata
+  totalQuestions?: number
+  totalApplicable?: number
+  naCount?: number
 }
 
 export type EvaluationData = {
@@ -221,36 +226,14 @@ export function AIEvaluationDashboard({ onBack, onSaveEvaluation }: AIEvaluation
           />
         )
       case "evaluation":
-        const currentCategoryId = evaluationData.selectedCategories[currentCategoryIndex]
-        const currentCategory = CATEGORIES.find((c) => c.id === currentCategoryId)
-
-        if (!currentCategory) {
-          setCurrentStep("results")
-          return null
-        }
-
         return (
-          <div>
-            <div className="mb-6 p-4 bg-muted rounded-lg">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="font-semibold">
-                  Category {currentCategoryIndex + 1} of {evaluationData.selectedCategories.length}
-                </h3>
-                <Badge variant="outline">
-                  {Math.round((currentCategoryIndex / evaluationData.selectedCategories.length) * 100)}% Complete
-                </Badge>
-              </div>
-              <Progress
-                value={(currentCategoryIndex / evaluationData.selectedCategories.length) * 100}
-                className="w-full"
-              />
-            </div>
-            <CategoryEvaluation
-              category={currentCategory}
-              onScoreUpdate={(score) => handleCategoryComplete(currentCategoryId, score)}
-              score={evaluationData.categoryScores[currentCategoryId]}
-            />
-          </div>
+          <EvaluationForm
+            categories={CATEGORIES}
+            selectedCategories={evaluationData.selectedCategories}
+            categoryScores={evaluationData.categoryScores}
+            onScoreUpdate={(categoryId, score) => handleCategoryComplete(categoryId, score)}
+            onComplete={() => setCurrentStep("results")}
+          />
         )
       case "results":
         return (

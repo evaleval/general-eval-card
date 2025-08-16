@@ -57,7 +57,11 @@
       "dangerous-capabilities",
       "governance-accountability"
     ],
-    "insufficientCategories": ["environmental-impact", "economic-displacement", "value-chain"]
+    "insufficientCategories": [
+      "environmental-impact",
+      "economic-displacement",
+      "value-chain"
+    ]
   },
   "categoryEvaluations": {
     "language-communication": {
@@ -72,9 +76,9 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B3": "yes",
+        "B4": "yes",
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -167,6 +171,16 @@
             "reviewers": "Academic researchers, AI safety experts, linguists",
             "feedbackChanges": "Enhanced multilingual evaluation based on expert feedback",
             "disagreements": "Some disagreements on long-context evaluation methodology resolved"
+          },
+          {
+            "url": "https://ai.google/responsibility/safety-process/",
+            "description": "Continuous evaluation and safety improvement process",
+            "documentType": "Process Documentation",
+            "triggers": "Model updates, safety incidents, performance regression",
+            "versionedSpecs": "Evaluation specifications tracked across model versions",
+            "auditTrail": "Comprehensive logging of evaluation changes and decisions",
+            "mitigationProtocols": "Rapid response protocols for safety and performance issues",
+            "retestProcedures": "Systematic retest procedures after model modifications"
           }
         ],
         "B6": [
@@ -178,18 +192,6 @@
             "axesConsistency": "Standardized metrics across all evaluations",
             "sampleSizes": "Large-scale evaluation with N>2000 per benchmark",
             "selectionCriteria": "Standard academic benchmark selection documented"
-          }
-        ],
-        "B8": [
-          {
-            "url": "https://ai.google/responsibility/safety-process/",
-            "description": "Continuous evaluation and safety improvement process",
-            "documentType": "Process Documentation",
-            "triggers": "Model updates, safety incidents, performance regression",
-            "versionedSpecs": "Evaluation specifications tracked across model versions",
-            "auditTrail": "Comprehensive logging of evaluation changes and decisions",
-            "mitigationProtocols": "Rapid response protocols for safety and performance issues",
-            "retestProcedures": "Systematic retest procedures after model modifications"
           }
         ]
       },
@@ -207,9 +209,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -249,9 +252,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -291,9 +295,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -333,9 +338,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -375,9 +381,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -417,9 +424,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -459,9 +467,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {},
       "processSources": {
@@ -490,9 +499,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {},
       "processSources": {
@@ -521,9 +531,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -563,9 +574,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -605,9 +617,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -647,9 +660,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -689,9 +703,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -731,9 +746,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -773,9 +789,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "yes"
+        "B5": [
+          "yes"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -815,9 +832,11 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "yes",
-        "B5": "yes",
-        "B6": "yes",
-        "B8": "no"
+        "B5": [
+          "yes",
+          "no"
+        ],
+        "B6": "yes"
       },
       "benchmarkSources": {
         "A1": [
@@ -857,9 +876,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {
         "A1": [
@@ -899,9 +919,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {},
       "processSources": {
@@ -930,9 +951,10 @@
       "processAnswers": {
         "B1": "yes",
         "B2": "no",
-        "B5": "no",
-        "B6": "no",
-        "B8": "no"
+        "B5": [
+          "no"
+        ],
+        "B6": "no"
       },
       "benchmarkSources": {},
       "processSources": {
